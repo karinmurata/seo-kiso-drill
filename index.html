@@ -1,0 +1,1114 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>:root{color-scheme:light}body{margin:0;font-family:system-ui,-apple-system,sans-serif;font-size:14px}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>SEO基礎ドリル</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: 単一カラムの学習カード。設問は検索結果のタイトルリンク風、出典はURLパンくず風に表示 */
+:root{
+  --bg:#F3F5F8; --surface:#FFFFFF; --ink:#1A2130; --muted:#5B6576; --line:#DCE2EA;
+  --accent:#2747C4; --accent-soft:#E7ECFB; --link:#1A33A6; --crumb:#2E6B4F;
+  --good:#1D7A4C; --good-soft:#E3F3EA; --bad:#B3261E; --bad-soft:#FBE7E5;
+  --tip:#F1F4EC; --tip-ink:#3E5A1F;
+  --f-display:"Zen Kaku Gothic New","Hiragino Sans","Yu Gothic",system-ui,sans-serif;
+  --f-body:"Zen Kaku Gothic New","Hiragino Sans","Yu Gothic",system-ui,sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#11141A; --surface:#191E27; --ink:#E5E9F0; --muted:#9AA4B4; --line:#2A3240;
+  --accent:#8EA6FF; --accent-soft:#222C4A; --link:#A9BAFF; --crumb:#7FC9A2;
+  --good:#5CC48D; --good-soft:#18301F; --bad:#F2897F; --bad-soft:#3A1E1C;
+  --tip:#1E2618; --tip-ink:#B5D48C; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#11141A; --surface:#191E27; --ink:#E5E9F0; --muted:#9AA4B4; --line:#2A3240;
+  --accent:#8EA6FF; --accent-soft:#222C4A; --link:#A9BAFF; --crumb:#7FC9A2;
+  --good:#5CC48D; --good-soft:#18301F; --bad:#F2897F; --bad-soft:#3A1E1C;
+  --tip:#1E2618; --tip-ink:#B5D48C; color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.75;padding-inline:16px;padding-block:24px 48px}
+.wrap{max-width:720px;margin:0 auto;display:flex;flex-direction:column;gap:20px}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;margin:0;line-height:1.35}
+code{font-family:var(--f-mono);font-size:.88em;background:var(--accent-soft);padding:.05em .35em;border-radius:4px;word-break:break-all}
+a{color:var(--link)}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,a:focus-visible,summary:focus-visible,input:focus-visible+span{outline:2px solid var(--accent);outline-offset:2px}
+
+.brand{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.brand h1{font-size:26px;font-weight:900;letter-spacing:.02em}
+.brand h1 span{color:var(--accent)}
+.brand p{margin:0;color:var(--muted);font-size:13px}
+
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:22px}
+.eyebrow{font-size:12px;letter-spacing:.08em;color:var(--muted);font-weight:700}
+.lead{margin:6px 0 0;color:var(--muted)}
+
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.chip{position:relative}
+.chip input{position:absolute;opacity:0;pointer-events:none}
+.chip>span{display:inline-flex;align-items:center;gap:8px;padding:7px 14px 7px 10px;border:1px solid var(--line);border-radius:8px;font-size:13px;color:var(--muted);background:var(--surface);cursor:pointer}
+.chip>span::before{content:"";flex:none;width:16px;height:16px;border:1.5px solid var(--muted);border-radius:4px;background:var(--surface);box-sizing:border-box}
+.chip input:checked+span{background:var(--accent-soft);color:var(--accent);border-color:var(--accent);font-weight:700}
+.chip input:checked+span::before{border-color:var(--accent);background:var(--accent) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3.5 8.5l3 3 6-7' fill='none' stroke='white' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/100% no-repeat}
+.chip input:focus-visible+span{outline:2px solid var(--accent);outline-offset:2px}
+.chip>span:hover{border-color:var(--accent)}
+.scope{margin-top:16px;border:1px solid var(--line);border-radius:10px;padding:14px 16px;background:var(--bg);display:flex;flex-direction:column;gap:14px}
+.scope-h{font-weight:700;font-size:15px;display:flex;flex-direction:column;gap:2px}
+.scope-h span{font-weight:400;font-size:12.5px;color:var(--muted)}
+.grp-h{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+.grp .chips{margin-top:8px}
+.bulk{display:flex;gap:14px}
+.pool{margin:0;font-size:13.5px;font-variant-numeric:tabular-nums}
+.pool b{font-size:16px}
+.pool.warn{color:var(--bad);font-weight:700}
+
+.ctl{display:flex;justify-content:flex-end;flex-wrap:wrap;gap:4px 16px;margin-top:10px}
+.lnk{background:none;border:0;padding:2px 0;font-size:13px;color:var(--link);text-decoration:underline;text-underline-offset:2px}
+.confirm{margin-top:12px;border:1px solid var(--bad);background:var(--bad-soft);border-radius:8px;padding:12px 14px}
+.confirm p{margin:0;font-size:14px}
+.opts{display:flex;flex-wrap:wrap;gap:14px 32px;margin-top:14px}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.btn{border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:10px 18px;font-weight:700}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--surface)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn:not(:disabled):hover{filter:brightness(1.05)}
+
+/* play */
+.meta{display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.bar{height:4px;background:var(--line);border-radius:4px;overflow:hidden;margin-top:8px}
+.bar i{display:block;height:100%;background:var(--accent);transition:width .3s}
+.tag{display:inline-block;font-size:12px;font-weight:700;color:var(--accent);border:1px solid var(--accent);border-radius:4px;padding:0 8px;margin-right:6px}
+.qtype{font-size:12px;color:var(--muted)}
+.qtext{font-size:19px;font-weight:700;color:var(--link);margin:12px 0 18px;line-height:1.6}
+.choices{display:flex;flex-direction:column;gap:10px}
+.choice{display:flex;gap:12px;align-items:flex-start;text-align:left;width:100%;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 14px;line-height:1.6}
+.choice .k{flex:none;width:26px;height:26px;border-radius:6px;display:grid;place-items:center;font-family:var(--f-mono);font-size:13px;background:var(--bg);border:1px solid var(--line);color:var(--muted)}
+.choice .t{min-width:0}
+.choice:not([disabled]):hover{border-color:var(--accent)}
+.choice[disabled]{cursor:default}
+.choice.ok{border-color:var(--good);background:var(--good-soft)}
+.choice.ok .k{background:var(--good);color:var(--surface);border-color:var(--good)}
+.choice.ng{border-color:var(--bad);background:var(--bad-soft)}
+.choice.ng .k{background:var(--bad);color:var(--surface);border-color:var(--bad)}
+.tf{flex-direction:row}
+.tf .choice{flex:1;justify-content:center;align-items:center;font-size:17px;font-weight:700;padding:16px}
+
+.fb{margin-top:18px;border-top:1px solid var(--line);padding-top:16px}
+.verdict{font-family:var(--f-display);font-weight:900;font-size:18px}
+.verdict.ok{color:var(--good)} .verdict.ng{color:var(--bad)}
+.lbl{font-size:12px;font-weight:700;letter-spacing:.06em;color:var(--muted);margin:12px 0 2px}
+.exp{margin:0}
+.tip{background:var(--tip);color:var(--ink);border-radius:8px;padding:10px 14px;margin:12px 0}
+.tip .lbl{color:var(--tip-ink);margin:0 0 2px}
+.tip p{margin:0}
+.src{display:block;font-size:13px;text-decoration:none;line-height:1.5}
+.src .crumb{color:var(--crumb);font-family:var(--f-mono);font-size:12px;display:block;word-break:break-all}
+.src .st{color:var(--link);text-decoration:underline;text-underline-offset:2px}
+
+/* url figure */
+.urlfig{margin:12px 0;border:1px solid var(--line);border-radius:8px;padding:12px 14px;background:var(--bg);overflow-x:auto}
+.segs{display:flex;flex-wrap:wrap;row-gap:10px}
+.seg{display:flex;flex-direction:column;align-items:flex-start;min-width:0}
+.seg code{background:none;padding:2px 1px;border-radius:0;border-bottom:3px solid var(--line);font-size:14px;color:var(--ink);word-break:normal;white-space:nowrap}
+.seg span{font-size:11px;color:var(--muted);margin-top:3px;padding-right:6px;white-space:nowrap}
+.seg.on code{border-bottom-color:var(--accent);background:var(--accent-soft);color:var(--accent);font-weight:500}
+.seg.on span{color:var(--accent);font-weight:700}
+.groups{list-style:none;margin:10px 0 0;padding:8px 0 0;border-top:1px dashed var(--line);display:flex;flex-direction:column;gap:2px;font-size:13px;color:var(--muted)}
+.groups b{color:var(--ink);font-weight:700;display:inline-block;min-width:4.5em}
+.groups li.on b{color:var(--accent)}
+.why{list-style:none;margin:2px 0 0;padding:0;display:flex;flex-direction:column;gap:8px}
+.why li{display:flex;flex-direction:column;font-size:14px;line-height:1.65;padding-left:12px;border-left:2px solid var(--bad-soft)}
+.why li b{font-weight:700;color:var(--muted);font-size:13px}
+.why li span{min-width:0}
+
+/* glossary */
+.gloss{margin:12px 0;border:1px solid var(--line);border-radius:8px;padding:8px 14px}
+.gloss summary{cursor:pointer;font-size:13px;font-weight:700;color:var(--muted)}
+.gl{margin:8px 0 4px;display:flex;flex-direction:column;gap:8px}
+.gl div{display:grid;grid-template-columns:minmax(7em,11em) 1fr;gap:4px 14px;font-size:13.5px;line-height:1.6}
+.gl dt{font-weight:700;min-width:0}
+.gl dd{margin:0;color:var(--muted);min-width:0}
+@media (max-width:480px){.gl div{grid-template-columns:1fr;gap:0}}
+.gloss-all summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.gloss-all summary::-webkit-details-marker{display:none}
+.gloss-all summary::after{content:"開く";font-size:12px;color:var(--link)}
+.gloss-all[open] summary::after{content:"閉じる"}
+.gloss-all .gl{margin-top:14px}
+.dt{color:var(--muted);font-size:13px}
+
+/* results */
+.score{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap}
+.score .pct{font-family:var(--f-display);font-size:56px;font-weight:900;line-height:1;font-variant-numeric:tabular-nums}
+.score .frac{color:var(--muted);font-variant-numeric:tabular-nums}
+.list{list-style:none;margin:16px 0 0;padding:0;display:flex;flex-direction:column}
+.item{border-top:1px solid var(--line);padding:12px 0;display:grid;grid-template-columns:28px 1fr;gap:10px}
+.item .mk{font-weight:900;font-size:16px;text-align:center}
+.item.ok .mk{color:var(--good)} .item.ng .mk{color:var(--bad)}
+.item .body{min-width:0}
+.item .q{font-weight:500}
+.item .ans{font-size:13px;margin-top:4px}
+.item .ans b{font-weight:700}
+.item .ans .y{color:var(--bad)} .item .ans .c{color:var(--good)}
+.item .exp{font-size:13.5px}
+.item .tip{font-size:13.5px}
+.item details{margin-top:6px}
+.item details summary{font-size:13px;color:var(--link);cursor:pointer}
+
+/* history */
+.hist{display:flex;flex-direction:column;margin-top:12px}
+.hist>details{border-top:1px solid var(--line)}
+.hist summary{list-style:none;display:grid;grid-template-columns:4.5em 1fr auto;gap:10px;align-items:center;padding:10px 0;cursor:pointer;font-variant-numeric:tabular-nums}
+.hist summary::-webkit-details-marker{display:none}
+.hist .rn{font-weight:700}
+.hist .dt{color:var(--muted);font-size:13px}
+.pill{font-size:12px;font-weight:700;border-radius:999px;padding:2px 10px;white-space:nowrap}
+.pill.hi{background:var(--good-soft);color:var(--good)}
+.pill.mid{background:var(--accent-soft);color:var(--accent)}
+.pill.lo{background:var(--bad-soft);color:var(--bad)}
+.hist ul{margin:0 0 12px;padding-left:1.2em;font-size:13.5px;color:var(--muted)}
+.hist .none{font-size:13.5px;color:var(--good);margin:0 0 12px}
+.empty{color:var(--muted);font-size:14px;margin:8px 0 0}
+.note{font-size:12px;color:var(--muted);margin:10px 0 0}
+.stats{display:flex;gap:18px;flex-wrap:wrap;font-size:13px;color:var(--muted);margin-top:4px;font-variant-numeric:tabular-nums}
+.stats b{color:var(--ink);font-size:15px}
+@media (prefers-reduced-motion: reduce){.bar i{transition:none}}
+@media (max-width:480px){.qtext{font-size:17px}.score .pct{font-size:44px}.panel{padding:18px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="brand">
+    <h1>SEO<span>基礎</span>ドリル</h1>
+    <p>出典：Google 検索セントラル（日本語版）</p>
+  </header>
+
+  <!-- START -->
+  <section id="start" class="panel">
+    <div class="eyebrow">1回 15問 · ○× と 4択</div>
+    <h2 style="font-size:20px;margin-top:4px">Google公式ドキュメントと Moz で固める、SEOの基本</h2>
+    <p class="lead">用語の意味、設定のあるべき姿、調査の進め方を出題します。答えるたびに解説と、SEOコンサルの現場で役立つ「実務のポイント」を表示します。</p>
+    <div class="stats" id="stats"></div>
+    <div class="scope">
+      <div class="scope-h">出題範囲を選ぶ<span>チェックを外したものは出題されません。最初はすべて選ばれています。</span></div>
+      <div class="grp">
+        <div class="grp-h"><span class="eyebrow">カテゴリ</span><span class="bulk"><button class="lnk" type="button" id="catAll">すべて選ぶ</button><button class="lnk" type="button" id="catNone">すべて外す</button></span></div>
+        <div class="chips" id="cats"></div>
+      </div>
+      <div class="grp">
+        <div class="grp-h"><span class="eyebrow">出典</span></div>
+        <div class="chips" id="srcs">
+          <label class="chip"><input type="checkbox" id="srcG" checked><span>Google 公式（<span id="nG"></span>）</span></label>
+          <label class="chip"><input type="checkbox" id="srcM" checked><span>Moz（<span id="nM"></span>）</span></label>
+        </div>
+      </div>
+      <p class="pool" id="poolInfo"></p>
+    </div>
+    <div class="actions">
+      <button class="btn primary" id="go">15問スタート</button>
+      <button class="btn" id="goWeak">間違えた問題を復習</button>
+    </div>
+  </section>
+
+  <section id="glossary" class="panel">
+    <details class="gloss-all"><summary><span class="eyebrow">用語集</span><span class="dt">解説に出てくる <span id="glCount"></span> 語</span></summary><div id="glAll"></div></details>
+  </section>
+
+  <section id="history" class="panel">
+    <div class="eyebrow">受験記録</div>
+    <div class="hist" id="hist"></div>
+    <p class="note">記録はこのブラウザにだけ保存されます。別の端末やシークレットウィンドウでは引き継がれません。</p>
+  </section>
+
+  <!-- PLAY -->
+  <section id="play" class="panel" hidden>
+    <div class="meta"><span id="pRound"></span><span id="pCount"></span></div>
+    <div class="ctl">
+      <button class="lnk" id="qRestart" type="button">この回を最初からやり直す</button>
+      <button class="lnk" id="qHome" type="button">トップに戻る</button>
+    </div>
+    <div class="confirm" id="qConfirm" hidden>
+      <p id="qConfirmMsg"></p>
+      <div class="actions" style="margin-top:10px"><button class="btn primary" id="qYes" type="button"></button><button class="btn" id="qNo" type="button">続ける</button></div>
+    </div>
+    <div class="bar"><i id="pBar"></i></div>
+    <div style="margin-top:16px"><span class="tag" id="pCat"></span><span class="qtype" id="pType"></span></div>
+    <div class="qtext" id="pQ"></div>
+    <div class="choices" id="pChoices"></div>
+    <div class="fb" id="pFb" hidden>
+      <div class="verdict" id="pVerdict"></div>
+      <div id="pDetail"></div>
+      <div class="actions"><button class="btn primary" id="next">次の問題</button></div>
+    </div>
+  </section>
+
+  <!-- RESULT -->
+  <section id="result" class="panel" hidden>
+    <div class="eyebrow" id="rRound"></div>
+    <div class="score"><span class="pct" id="rPct"></span><span class="frac" id="rFrac"></span></div>
+    <p class="lead" id="rMsg"></p>
+    <ol class="list" id="rList"></ol>
+    <div class="actions">
+      <button class="btn primary" id="again">次の15問へ</button>
+      <button class="btn" id="againWeak">間違えた問題を復習</button>
+      <button class="btn" id="home">トップに戻る</button>
+    </div>
+  </section>
+</div>
+
+<script>
+const B='https://developers.google.com/search/docs/';
+const MZ='https://moz.com/beginners-guide-to-seo';
+const S={
+  starter:[B+'fundamentals/seo-starter-guide?hl=ja','SEO スターター ガイド'],
+  how:[B+'fundamentals/how-search-works?hl=ja','Google 検索の仕組み'],
+  ess:[B+'essentials?hl=ja','Google 検索の基本事項'],
+  tech:[B+'essentials/technical?hl=ja','Google 検索の技術要件'],
+  spam:[B+'essentials/spam-policies?hl=ja','スパムに関するポリシー'],
+  helpful:[B+'fundamentals/creating-helpful-content?hl=ja','有用で信頼性の高い、ユーザー第一のコンテンツの作成'],
+  robots:[B+'crawling-indexing/robots/intro?hl=ja','robots.txt の概要'],
+  canon:[B+'crawling-indexing/consolidate-duplicate-urls?hl=ja','rel="canonical" などを利用して正規 URL を指定する方法'],
+  redir:[B+'crawling-indexing/301-redirects?hl=ja','リダイレクトと Google 検索'],
+  rel:[B+'crawling-indexing/qualify-outbound-links?hl=ja','アウトバウンド リンクの関係性を伝える'],
+  title:[B+'appearance/title-link?hl=ja','タイトルリンク'],
+  snippet:[B+'appearance/snippet?hl=ja','検索結果のスニペットを管理する'],
+  cwv:[B+'appearance/core-web-vitals','Core Web Vitals'],
+  drops:[B+'monitor-debug/debugging-search-traffic-drops?hl=ja','Google 検索トラフィックの減少をデバッグする'],
+  pir:['https://support.google.com/webmasters/answer/7440203?hl=ja','ページのインデックス登録レポート（Search Console ヘルプ）'],
+  url:[B+'crawling-indexing/url-structure?hl=ja','URL 構造に関するベスト プラクティス'],
+  sd:[B+'appearance/structured-data/intro-structured-data?hl=ja','構造化データ マークアップの概要'],
+  sc:['https://support.google.com/webmasters/answer/7576553?hl=ja','検索パフォーマンス レポート（Search Console ヘルプ）'],
+  links:[B+'crawling-indexing/links-crawlable?hl=ja','クロール可能なリンクを作成する'],
+  m0:[MZ,'Moz Beginner’s Guide to SEO｜Quick Start Guide'],
+  m1:[MZ,'Moz Beginner’s Guide to SEO｜第1章 SEO 101'],
+  m2:[MZ,'Moz Beginner’s Guide to SEO｜第2章 How Search Engines Work'],
+  m3:[MZ,'Moz Beginner’s Guide to SEO｜第3章 Keyword Research'],
+  m4:[MZ,'Moz Beginner’s Guide to SEO｜第4章 On-Page SEO'],
+  m5:[MZ,'Moz Beginner’s Guide to SEO｜第5章 Technical SEO'],
+  m6:[MZ,'Moz Beginner’s Guide to SEO｜第6章 Link Building & Establishing Authority'],
+  m7:[MZ,'Moz Beginner’s Guide to SEO｜第7章 Measuring & Tracking SEO']
+};
+const C1='仕組み・用語',C2='設定・実装',C3='コンテンツ・ポリシー',C4='調査・分析',C5='URLの構造',C6='キーワード・検索意図',C7='リンク';
+const CATS=[C1,C5,C2,C3,C6,C7,C4];
+// tf: a=0 → ○（正しい）, a=1 → ×（誤り）。mc は a=0 が正解（表示時にシャッフル）
+// e: 解説 / p: 実務のポイント
+const Q=[
+// ── 仕組み・用語
+{id:1,c:C1,t:'mc',q:'Google 検索の処理ステージを正しい順に並べたものはどれ？',ch:['クロール → インデックス登録 → 検索結果の表示','インデックス登録 → クロール → 検索結果の表示','検索結果の表示 → クロール → インデックス登録','クロール → 検索結果の表示 → インデックス登録'],a:0,
+ e:'Google はまずクローラー（Googlebot）でページを取得し（クロール）、次にテキスト・画像・タグなどを解析して正規ページを選び、インデックスという巨大なデータベースに保存します（インデックス登録）。ユーザーが検索すると、インデックスから関連性と品質の高いページを選んで返します（検索結果の表示）。すべてのページが3段階を通過するわけではなく、途中で止まると検索結果には出ません。',
+ why:{1:'ページを取得（クロール）する前に、保存（インデックス登録）はできません。',2:'検索結果の表示は、最後の工程です。最初に来ることはありません。',3:'検索結果に出すページは、すでにインデックスに保存されたものから選ばれます。そのため、表示はインデックス登録より後です。'},
+ p:'「検索に出ない」という相談では、どの段階で止まっているかを切り分けるのが第一歩です。Search Console の URL 検査で、インデックス登録の有無と最終クロール日時を見れば、どこで止まっているか見当がつきます。',s:'how'},
+{id:61,c:C1,t:'mc',q:'内部リンクのアンカーテキストとして最も適切なものはどれ？',ch:['「キャットフードの選び方」','「こちら」','「詳しくはここをクリック」','リンク先の URL 文字列をそのまま表示'],a:0,
+ e:'アンカーテキスト（リンクテキスト）は、リンクの表示部分です。ユーザーと Google の両方に、リンク先がどんなページかを伝える手がかりになります。「こちら」のような曖昧な語では内容が伝わらないため、リンク先の中身を短く具体的に表す語句が推奨されています。',
+ why:{1:'「こちら」では、リンク先がどんなページか伝わりません。ユーザーにも Google にも手がかりにならないため、避けるよう勧められている書き方です。',2:'「ここをクリック」も同じで、リンク先の内容が分かりません。',3:'URL をそのまま表示しても、内容が伝わりにくく、長くなりがちです。内容を表す語句にするのが推奨です。'},
+ p:'サイト監査では、内部リンクのアンカーが「詳しくはこちら」ばかりになっていないかを確認します。重要ページへのリンクを内容が分かる語句に置き換えるのは、工数が少なく提案しやすい改善策です。',s:'starter'},
+{id:3,c:C1,t:'tf',q:'ページが HTTP 200 を返し、Googlebot にブロックされておらず、インデックスできる内容があれば、Google はそのページをインデックスに登録する。',a:1,
+ e:'技術要件（Googlebot がブロックされていない、HTTP 200 を返す、インデックス可能なコンテンツがある）は、インデックス登録の「対象になる」ための最低ラインです。満たしていても、品質や重複の判定などにより登録されないことがあります。Google はクロール、インデックス登録、表示のいずれも保証していません。',
+ p:'クライアントに「対応したのでインデックスされます」と約束するのは避けます。説明は「登録される条件を整えた」までに留め、その後の状況を Search Console で追いかけます。',s:'tech'},
+{id:4,c:C1,t:'mc',q:'Google が新しいページを発見する主な方法はどれ？',ch:['既知のページからリンクをたどる','meta keywords タグを読む','Search Console への登録を必須としている','ドメイン登録情報を定期的に照会する'],a:0,
+ e:'Google はすでに知っているページに含まれるリンクを抽出して、新しい URL を見つけます（URL 検出）。たとえばカテゴリページのようなハブページから新しい記事にリンクしていれば、見つかりやすくなります。サイトマップの送信も補助になりますが、必須ではありません。',
+ why:{1:'Google は meta keywords タグを検索に使っていません。ページを発見する手段でもありません。',2:'Search Console への登録は必須ではありません。登録していなくても、リンクをたどってページは見つかります。',3:'Google がページ発見の方法として説明しているのは、リンクをたどることです。ドメイン登録情報の照会ではありません。'},
+ p:'新しいページがなかなか見つからない場合は、まずどこからも内部リンクされていない「孤立ページ」になっていないかを確認します。',s:'how'},
+{id:5,c:C1,t:'mc',q:'「正規ページ（canonical）」の説明として正しいものはどれ？',ch:['類似コンテンツのページ群を代表し、検索結果に表示されうるページ','サイトのトップページのこと','robots.txt でクロールを許可したページのこと','構造化データを実装したページのこと'],a:0,
+ e:'Google は内容が同じか非常に似ているページをグループにまとめ（クラスタリング）、その中から代表を1つ選びます。これが正規ページで、主に検索結果に表示されます。残りのページは代替バージョンとして扱われ、モバイルからの検索など状況に応じて表示されることがあります。',
+ why:{1:'トップページは1つのページにすぎません。正規ページかどうかは、同じ内容のページが複数あるときに、その代表として選ばれるかどうかで決まります。',2:'クロールを許可しているかどうかと、正規ページかどうかは別の話です。許可されていても、正規に選ばれるとは限りません。',3:'構造化データの有無は、正規ページの定義と関係がありません。'},
+ p:'URL 検査ツールでは「ユーザーが指定した正規 URL」と「Google が選択した正規 URL」を見比べられます。両者が食い違っていれば、正規化の設定や内部リンクを見直すサインです。',s:'how'},
+{id:6,c:C1,t:'tf',q:'Google はクロール時に最新版の Chrome でページをレンダリングし、JavaScript も実行する。',a:0,
+ e:'多くのサイトは JavaScript でコンテンツを描画するため、Google はクロール時に最新版の Chrome を使ってページをレンダリングし、JavaScript を実行してから内容を確認します。レンダリングしないと見えないコンテンツがあるからです。ただしレンダリングは失敗することもあり、必ず読まれる保証はありません。',
+ p:'JavaScript で描画するサイトでは、URL 検査ツールの「公開 URL をテスト」でレンダリング後の HTML やスクリーンショットを確認し、重要なテキストやリンクが含まれているかをチェックします。',s:'how'},
+{id:7,c:C1,t:'mc',q:'Google 検索の「技術要件」に含まれないものはどれ？',ch:['サイトマップを送信していること','Googlebot がブロックされていないこと','HTTP 200 ステータスが返ること','インデックス登録可能なコンテンツがあること'],a:0,
+ e:'技術要件は「Googlebot がブロックされていない」「HTTP 200（成功）を返す」「インデックス登録可能なコンテンツがある」の3つだけで、多くのサイトは何もしなくても満たしています。サイトマップは重要な URL を伝える便利な手段ですが、送信しなくてもリンクから発見されます。',
+ why:{1:'サイトマップの送信は、技術要件に含まれません。',2:'技術要件の1つです。Googlebot がブロックされていると、ページを取得できません。',3:'技術要件の1つです。HTTP 200 以外（404 やサーバーエラーなど）だと、通常は登録されません。'},
+ p:'サイトマップは必須ではないものの、新しいサイトや大規模サイト、内部リンクが弱いサイトでは効果が大きいので「推奨」として提案するのが妥当です。',s:'tech'},
+{id:8,c:C1,t:'tf',q:'E-E-A-T の4要素のうち、最も重要とされるのは「信頼性（Trustworthiness）」である。',a:0,
+ e:'E-E-A-T は経験（Experience）、専門性（Expertise）、権威性（Authoritativeness）、信頼性（Trustworthiness）の頭文字です。中心にあるのは信頼性で、他の3つは信頼性を支える要素という位置づけです。4つすべてで優れている必要はなく、実体験で役立つコンテンツもあれば、専門知識で役立つコンテンツもあります。',
+ p:'信頼性を伝える具体策は、著者情報、運営者情報、情報源の明示、事実の正確さなどです。施策提案ではこれらを「信頼性を伝える要素」としてまとめると説明しやすくなります。',s:'helpful'},
+{id:9,c:C1,t:'tf',q:'E-E-A-T はそれ自体が直接のランキング要因である。',a:1,
+ e:'Google の説明では、E-E-A-T 自体はランキングに直接影響する要因ではありません。Google のシステムは、E-E-A-T に優れたコンテンツを見分けるのに役立つ複数の要素を組み合わせて使っています。スターターガイドでも「E-E-A-T をランキング要因と考える」ことは誤解の例として挙げられています。',
+ p:'「E-E-A-T のスコアを上げる」という言い方は不正確です。「信頼できるコンテンツであることが伝わる状態にする」と説明するのが正確です。',s:'helpful'},
+{id:10,c:C1,t:'mc',q:'「YMYL」が指すトピックとして最も適切なものはどれ？',ch:['健康・安全・経済的安定・社会の福利に大きく影響しうるトピック','検索ボリュームが大きいトピック','YouTube 動画が上位に出るトピック','季節によって需要が変動するトピック'],a:0,
+ e:'YMYL は Your Money or Your Life の略で、人の健康や安全、経済的な安定、社会の福利に大きく影響しうるトピックを指します。医療、金融、法律などが典型です。こうした分野では E-E-A-T が優れたコンテンツが特に重視され、内容が正確で、確立された専門家の見解と一致していることが求められます。',
+ why:{1:'検索数の多さは YMYL の基準ではありません。YMYL は、人の生活への影響の大きさで決まります。',2:'動画が表示されるかどうかは、YMYL とは無関係です。',3:'需要の季節変動は、YMYL の定義とは関係がありません。'},
+ p:'YMYL 領域のクライアントでは、監修者の明記、参考文献の提示、情報の更新管理など、正確さと根拠を示す施策の優先度が高くなります。',s:'helpful'},
+{id:11,c:C1,t:'mc',q:'PageRank についての説明で正しいものはどれ？',ch:['リンクを利用する基本アルゴリズムの一つで、多数あるランキングシグナルの一つにすぎない','現在の Google で唯一のランキング指標である','2010年代に完全に廃止された','Search Console で数値を確認できる'],a:0,
+ e:'PageRank はリンクを利用してページを評価する、Google の基本アルゴリズムの一つです。ただし Google 検索は多数のランキングシグナルを使っており、PageRank はそのうちの一つにすぎません。',
+ why:{1:'Google は多数のシグナルを使っていて、PageRank が唯一の指標ということはありません。',2:'ツールバーでの数値の表示は終わりましたが、アルゴリズム自体は廃止されていません。',3:'ページごとの PageRank の数値は、Search Console では確認できません。'},
+ p:'被リンクは今も重要ですが「リンクさえ増やせば上がる」わけではありません。コンテンツの有用性や技術面とあわせて評価する視点が必要です。',s:'starter'},
+{id:12,c:C1,t:'mc',q:'Google の「検索品質評価者」の役割として正しいものはどれ？',ch:['アルゴリズムの変更が意図どおり機能しているか確認するための評価を行う','個々のサイトの掲載順位を手動で決める','評価データがそのままランキングアルゴリズムに入力される','スパム報告を受けてペナルティを科す'],a:0,
+ e:'検索品質評価者は、Google のアルゴリズムが適切な結果を返しているか、変更が正しく機能しているかを確認するための評価を行います。個々のページの順位を操作することはできず、評価データが直接ランキングに使われることもありません。Google はこれを飲食店のお客様アンケートにたとえています。',
+ why:{1:'評価者は、個々のサイトの順位を決めません。',2:'評価データがそのままランキングに入力されることはありません。アルゴリズムが意図どおり動いているかの確認に使われます。',3:'スパム報告への対応やペナルティ（手動による対策）は、検索品質評価者の役割として説明されていません。'},
+ p:'評価者向けの「検索品質評価ガイドライン」は公開されています。Google がどんなページを良いと考えているかを学ぶ教材として、一度は目を通しておく価値があります。',s:'helpful'},
+{id:13,c:C1,t:'tf',q:'特定の国をターゲットにする場合を除き、.com・.org・.asia などの TLD の違いは Google 検索で考慮されない。',a:0,
+ e:'TLD が意味を持つのは、特定の国のユーザーを狙う場合（国別コードの .jp や .ch など）だけで、その場合でもシグナルは弱いとされています。.com・.org・.asia などの違いは、Google 検索では考慮されません。',
+ p:'ドメイン選びの相談では、TLD の種類よりも、ブランドとして覚えやすく信頼されやすい名前を優先するよう助言します。',s:'starter'},
+{id:14,c:C1,t:'mc',q:'サイトに変更を加えた後、検索結果への影響を確認するまでの目安としてスターターガイドが勧めているのはどれ？',ch:['数週間待ってから確認する','翌日には確認できる','最低1年は待つ','変更直後に Search Console で確定する'],a:0,
+ e:'変更が Google に反映されるまでには、数時間で済むものから数か月かかるものまであります。スターターガイドでは、一般的に数週間待ってから効果を確認するよう勧めています。また、変更したからといって必ず目に見える変化があるとは限りません。',
+ why:{1:'変更が反映されるまでには時間がかかります。翌日では、結果を判断できません。',2:'1年も待つ必要はありません。スターターガイドが勧めている目安は数週間です。',3:'変更直後は反映の途中の可能性が高く、その時点で結果を確定することはできません。'},
+ p:'効果測定は、施策の実施日を記録し、数週間後に施策前の同じ長さの期間と Search Console で比較するのが基本です。短期間で判断して施策を戻すのは避けます。',s:'starter'},
+{id:15,c:C1,t:'tf',q:'ドメイン名や URL にキーワードを入れると、そのキーワードで上位に表示されやすくなる。',a:1,
+ e:'ドメイン名や URL パスに含まれるキーワードは、ランキングの面ではパンくずリストとして表示される以上の効果はほとんどないとされています。サイト名はユーザーが覚えて探すものなので、ビジネスに合った名前を選ぶのが推奨です。',
+ p:'キーワード入りドメインへの移転を検討しているクライアントには、移転に伴うリスクや手間に見合う効果はほぼないと説明できます。',s:'starter'},
+
+// ── 設定・実装
+{id:16,c:C2,t:'tf',q:'robots.txt で Disallow したページは、検索結果に表示されなくなる。',a:1,
+ e:'robots.txt はクローラーに「どの URL にアクセスしてよいか」を伝えるもので、主にサーバーの過負荷を防ぐための仕組みです。検索結果から隠す仕組みではありません。ブロックしたページでも、他のサイトからリンクされていれば URL がインデックスされ、説明文なしで検索結果に出ることがあります。',
+ p:'「robots.txt で止めたのに検索に出る」はよくある相談です。検索結果から消したいなら、ブロックを外して noindex を設定し、再クロールを待つのが正しい手順です。',s:'robots'},
+{id:17,c:C2,t:'mc',q:'特定のページを検索結果に表示させたくない。推奨される方法はどれ？',ch:['クロールを許可したうえで `noindex` を設定する','robots.txt で Disallow する','meta keywords を空にする','サイトマップから外す'],a:0,
+ e:'検索結果に出さない確実な方法は、noindex（meta タグ、または HTTP レスポンスヘッダーの X-Robots-Tag）、パスワード保護、ページの削除です。robots.txt はクロールを止めるだけで、インデックス登録を防ぐ手段ではありません。サイトマップから外しても、リンクから発見されれば登録されます。',
+ why:{1:'robots.txt はクロールを止めるだけで、インデックス登録は防げません。しかもクロールを止めると、ページ内の noindex も読まれなくなります。',2:'Google は meta keywords を検索に使っていないので、空にしても表示は変わりません。',3:'サイトマップから外しても、ほかのページからリンクされていれば、見つかって登録されます。'},
+ p:'noindex は Google がページをクロールして初めて認識されます。設定後は URL 検査からインデックス登録をリクエストすると、反映を早められます。',s:'robots'},
+{id:18,c:C2,t:'tf',q:'`noindex` を効かせるには、そのページを robots.txt でもブロックしておく必要がある。',a:1,
+ e:'逆です。robots.txt でクロールをブロックすると、Google はページの中身を読めないため、noindex の指示にも気づけません。noindex を使うときは、そのページのクロールを許可しておく必要があります。',
+ p:'監査では、robots.txt の Disallow と noindex が同じ URL に重なっていないかを確認します。重なっていれば noindex が効かない状態です。',s:'tech'},
+{id:19,c:C2,t:'mc',q:'正規 URL を伝える方法のうち、シグナルとして最も強いものはどれ？',ch:['リダイレクト','canonical タグ','サイトマップに含める','内部リンクのアンカーテキスト'],a:0,
+ e:'正規 URL を伝える方法は、強い順にリダイレクト、canonical タグ、サイトマップへの記載です。組み合わせるほど、希望する正規 URL が選ばれる可能性が高くなります。なお、どれも必須ではなく、指定しなくても Google が最適な URL を判断します。',
+ why:{1:'canonical タグも強いシグナルですが、Google の説明では、リダイレクトのほうが効果が高い方法として先に挙げられています。',2:'サイトマップは、シグナルとしては弱い方法です。',3:'アンカーテキストは正規 URL を伝える方法ではありません。'},
+ p:'不要になった重複ページは 301 リダイレクト、残す必要がある重複（パラメータ付き URL など）は canonical、と使い分けるのが基本です。',s:'canon'},
+{id:20,c:C2,t:'tf',q:'サイトマップに含めることは、canonical タグよりも強い正規化シグナルである。',a:1,
+ e:'サイトマップに載せた URL は正規ページの候補として伝わりますが、シグナルとしては弱いものです。canonical タグは強いシグナルで、リダイレクトはさらに強いシグナルです。',
+ p:'サイトマップには正規 URL だけを載せ、canonical で指定した URL と食い違わないようにします。方法ごとに別の URL を正規として指定するのは避けるべきとされています。',s:'canon'},
+{id:21,c:C2,t:'mc',q:'canonical タグの書き方として正しいものはどれ？',ch:['絶対 URL で指定し、正規ページ自身にも自己参照の canonical を入れる','相対パスで指定するのが推奨される','重複ページは robots.txt でブロックして正規化する','URL フラグメント（#以降）付きの URL を正規版にする'],a:0,
+ e:'canonical タグ（`<link rel="canonical" href="…">`）は絶対 URL で指定し、正規ページ自身にも自分を指す canonical（自己参照 canonical）を入れるのが推奨です。相対パスもサポートされていますが、テスト環境を誤ってクロールさせるなどの問題を招きやすくなります。robots.txt や URL 削除ツールを正規化に使うのは誤りで、URL フラグメントも正規 URL には使えません。',
+ why:{1:'相対パスも使えますが、テスト環境の設定などで問題が起きやすいため、絶対 URL が推奨されています。',2:'重複ページを robots.txt でブロックすると、Google がページを読めず、canonical の指示も伝わりません。',3:'URL フラグメント（# 以降）は、正規 URL には使いません。'},
+ p:'canonical は HTML の head 内にないと受け付けられません。JavaScript で書き換えられていないかも含め、レンダリング後の HTML で確認します。',s:'canon'},
+{id:22,c:C2,t:'mc',q:'EC サイトで、同じ商品の色違いページ（赤・青・黒）が、色の名前以外ほぼ同じ内容になっている。対応として最も適切なものはどれ？',ch:['代表にしたいページを決め、他の色のページから canonical タグでそのページを指す','重複コンテンツのペナルティを受ける前に、代表以外のページを削除する','代表以外のページを robots.txt でブロックする','手動による対策を避けるため、急いで各ページの説明文を書き分ける'],a:0,
+ e:'同じ内容のページが複数あっても、スパムポリシー違反にはならず、手動による対策（ペナルティ）の対象にもなりません。Google が自動で代表の URL（正規 URL）を選び、それを検索結果に出すだけです。ただ、どの URL を出してほしいかを伝えたり、評価を1つの URL に集めたりするには、canonical タグで代表ページを指定するのが適しています。なお、他人のコンテンツをコピーするのは別の問題で、こちらはスパムとして扱われることがあります。',
+ why:{1:'重複コンテンツにペナルティはありません。色違いのページは訪問者に必要なので、削除すると使い勝手が悪くなります。',2:'robots.txt は正規化に使わないよう Google が明記しています。ブロックすると canonical の指示も読まれず、内容のない URL だけがインデックスされることもあります。',3:'ペナルティを避けるために書き分ける必要はありません。書き分けること自体は悪くありませんが、目的と理由が誤っています。'},
+ p:'「重複コンテンツはペナルティになるので急いで対策を」という提案は誤解に基づいています。クライアントには「ペナルティではないが、評価を1つの URL に集めるために正規化で整理する」と説明するのが正確です。',s:'starter'},
+{id:63,c:C2,t:'tf',q:'サイト内でリンクするときは、重複 URL ではなく正規 URL にリンクすることが推奨されている。',a:0,
+ e:'正規にしたい URL へ一貫して内部リンクすることで、どの URL を正規として選んでほしいかが Google に伝わりやすくなります。パラメータ付きの URL や旧 URL への内部リンクが混在していると、正規化のシグナルがぶれます。',
+ p:'監査では、パンくず、グローバルナビ、記事内リンクが正規 URL（末尾スラッシュの有無や www の有無、http/https を含む）で統一されているかを確認します。',s:'canon'},
+{id:23,c:C2,t:'mc',q:'Google が「永続的なリダイレクト」として扱うものはどれ？',ch:['HTTP 301','HTTP 302','HTTP 404','HTTP 200'],a:0,
+ e:'永続的（恒久的）なリダイレクトを示すのは 301 と 308 です。302 と 307 は一時的なリダイレクト、404 は「ページが見つからない」、200 は「正常に表示できた」を意味し、404 と 200 はリダイレクトではありません。永続的なリダイレクトは、転送先が正規 URL であることを示す強いシグナルになり、検索結果も新しい URL に置き換わっていきます。',
+ why:{1:'302 は一時的なリダイレクトです。',2:'404 は「ページが見つからない」ことを示すもので、リダイレクトではありません。',3:'200 は「正常に表示できた」ことを示すもので、リダイレクトではありません。'},
+ p:'リニューアルや URL 変更では、旧 URL から新 URL へ1対1で 301 を設定するのが基本です。302 のままにしていると、旧 URL が検索結果に残りやすくなります。',s:'redir'},
+{id:65,c:C2,t:'mc',q:'ページの URL を変更し、内容は新しい URL に移した。古い URL はどうするのが適切？',ch:['新しい URL へ 301 リダイレクトする','新しい URL へ 302 リダイレクトする','404 を返す','古い URL も残し、同じ内容を表示し続ける'],a:0,
+ e:'内容が恒久的に別の URL へ移ったときは 301 リダイレクトを使います。Google は 301 を「転送先を正規として扱うべき強いシグナル」として受け取り、検索結果も新しい URL に置き換わっていきます。302 は一時的な転送を意味する弱いシグナルなので、古い URL が検索結果に残りやすくなります。404 にすると、古い URL が受けていた被リンクなどの評価を新しいページに引き継げません。両方の URL で同じ内容を出し続けると重複になります。',
+ why:{1:'302 は一時的な転送を意味するため、古い URL が検索結果に残りやすくなります。',2:'404 にすると、古い URL が受けていた評価や被リンクが新しいページに引き継がれません。',3:'同じ内容が2つの URL にあると重複になり、どちらを表示するかが Google の判断任せになります。'},
+ p:'リニューアルや URL 変更では、旧 URL と新 URL を1対1で対応させた「リダイレクト対応表」を作ります。公開後は旧 URL に実際にアクセスし、301 で正しい転送先に飛ぶかを確認します。',s:'redir'},
+{id:66,c:C2,t:'mc',q:'期間限定キャンペーン中だけ、通常の商品ページを特設ページへ転送したい。キャンペーン後は元に戻す。使うべきものはどれ？',ch:['302 リダイレクト','301 リダイレクト','404','noindex'],a:0,
+ e:'一定期間だけ別ページへ誘導し、あとで元に戻す場合は一時的なリダイレクト（302 や 307）を使います。Google は一時的なリダイレクトを正規化のシグナルとして使わないため、検索結果には元の商品ページが残りやすく、戻したときの影響を抑えられます。301 にすると特設ページの方が正規として扱われ、検索結果の URL が置き換わってしまう可能性があります。',
+ why:{1:'301 は恒久的な移転の合図です。特設ページが正規として扱われ、元の商品ページが検索結果から置き換わる恐れがあります。',2:'404 を返すと、商品ページが削除されたと判断されます。',3:'noindex は検索結果から外す指示で、転送の方法ではありません。'},
+ p:'逆に、恒久的な移転なのに 302 のまま放置されているケースは監査でよく見つかります。リダイレクトの種類は、ブラウザの開発者ツールやリダイレクトチェックツールでステータスコードを見て確認します。',s:'redir'},
+{id:67,c:C2,t:'mc',q:'「ソフト 404」の説明として正しいものはどれ？',ch:['中身は「見つかりません」や空のページなのに、ステータスコードは 200（成功）を返している状態','404 ページのデザインが簡素すぎる状態','一時的に 404 を返したが、すぐに復旧した状態','削除したページが 410 を返している状態'],a:0,
+ e:'ソフト 404 は、実際にはページが存在しない（「見つかりません」と表示される、ほとんど空っぽ）のに、サーバーが HTTP 200（成功）を返している状態です。Google はページの中身からエラーページだと判断し、Search Console のページのインデックス登録レポートで「ソフト 404」として報告します。存在しないページには、ステータスコードとして正しく 404 を返すのが推奨です。',
+ why:{1:'ソフト 404 は、見た目のデザインの問題ではありません。中身とステータスコードの食い違いの問題です。',2:'ステータスコードが実際に 404 なら、ソフト 404 ではなく通常の 404 です。',3:'削除したページに 410 を返すのは正しい対応で、ソフト 404 ではありません。'},
+ p:'商品がなくなって中身が空になったページ、検索結果が0件のページ、内容の読み込みに失敗して空になっているページなどでよく発生します。原因によって対処が変わるので、まずページの実際の状態を確認します。',s:'pir'},
+{id:68,c:C2,t:'tf',q:'削除して代わりのページもない URL は、404 を返すのが正しい対応である。',a:0,
+ e:'ページを置き換えずに削除した場合、404 を返すのは正しい動作です。Google は 404 の URL の内容を使わず、以前インデックスにあったものは削除し、その URL へのクロール頻度も徐々に下げていきます。一方、ページを移動したのであれば、404 ではなく 301 で新しい URL へ転送します。',
+ p:'Search Console で 404 が多数報告されても慌てる必要はありません。優先して直すべきなのは、自サイト内からリンクされている 404 と、サイトマップに載っている 404 です。',s:'pir'},
+{id:62,c:C2,t:'mc',q:'画像の代替テキスト（alt 属性）について正しいものはどれ？',ch:['画像の内容と、ページ内での意味を簡潔に説明するもの','キーワードを多く並べるほど効果がある','画像ファイル名と同じ文字列にするのが推奨','装飾用の項目で、検索には影響しない'],a:0,
+ e:'代替テキストは、画像とコンテンツの関係を簡潔に説明するものです。Google が「何の画像か」「ページの中でどんな意味を持つか」を理解するのに役立つため、適切に書くことが重要とされています。img 要素の alt 属性で指定し、多くの CMS ではアップロード時に入力欄があります。画像は関連するテキストの近くに置くと、文脈も伝わりやすくなります。',
+ why:{1:'キーワードを詰め込むのは、避けるべき書き方です。画像の内容を簡潔に説明します。',2:'ファイル名と同じにする必要はありません。画像の内容と、ページ内での意味を説明する文にします。',3:'alt は、画像の内容を Google に伝える手がかりになります。画像検索や、スクリーンリーダーで読み上げるときにも使われます。'},
+ p:'画像検索からの流入が見込める業種（レシピ、商品、旅行など）では、alt の未設定や「画像1」のような中身のない記述がないかを優先的に監査します。',s:'starter'},
+{id:70,c:C2,t:'mc',q:'リンクに付ける「nofollow」の意味として正しいものはどれ？',ch:['リンク先と自サイトを関連付けたくない（推薦していない）ことを Google に伝える','リンク先のページを検索結果から削除する','リンクをユーザーから見えなくする','リンク先ページの表示を速くする'],a:0,
+ e:'nofollow はリンクに付ける注釈で、自サイトがそのリンク先を推薦しているわけではない、関連付けたくない、ということを Google に伝えます。こうしたリンクは基本的にたどられませんが、リンク先が他の経路で見つかればクロールされることはあり、検索結果から消えるわけではありません。コメント欄などユーザーが書き込んだリンク向けには、ugc という専用の値もあります。',
+ why:{1:'nofollow は、リンクの扱いを伝える指定です。リンク先を検索結果から削除する効果はありません。',2:'リンクの見た目は変わりません。ユーザーは通常どおりクリックできます。',3:'表示速度とは関係がありません。'},
+ p:'信頼性を確認できない外部サイトへのリンクや、コメント欄・掲示板の投稿リンクに使います。自サイト内のページへのクロールを止めたい場合は、nofollow ではなく robots.txt を使うとされています。',s:'rel'},
+{id:28,c:C2,t:'tf',q:'Google 検索は meta keywords タグをランキングに利用している。',a:1,
+ e:'Google 検索は keywords メタタグを利用していません。また、同じ語句を繰り返し詰め込むことは、キーワードの乱用としてスパムポリシー違反にもなりえます。',
+ p:'既存サイトに meta keywords が残っていても害はありませんが、設定作業に工数をかける意味はありません。それを推す提案があれば見直しの対象です。',s:'starter'},
+{id:29,c:C2,t:'tf',q:'meta description の長さに上限はなく、検索結果では必要に応じて切り詰められる。',a:0,
+ e:'メタディスクリプションに文字数の制限はありません。検索結果では、デバイスの幅などに合わせて必要に応じて切り詰めて表示されます。良いディスクリプションは、ページ固有の内容を簡潔に要約し、ユーザーに「探していたのはこれだ」と思わせるものです。',
+ p:'「〇文字以内」は表示のされ方からくる目安にすぎません。要点を前半に置くこと、ページごとに固有の内容にすることの方が重要です。',s:'snippet'},
+{id:30,c:C2,t:'mc',q:'検索結果のスニペットについて正しいものはどれ？',ch:['主にページ内容から自動生成され、検索語句によって表示内容が変わることがある','常に meta description がそのまま表示される','Search Console で任意の文章に固定できる','title タグの内容が表示される'],a:0,
+ e:'スニペットは主にページの本文から自動生成され、検索語句との関連が最も高い部分を見せるように作られます。そのため、同じページでも検索語句によって表示が変わります。meta description の方がページを正確に説明できると Google が判断した場合は、その内容が使われます。',
+ why:{1:'meta description がページの内容を正確に表している場合に使われることがあるだけで、常にそのまま表示されるわけではありません。',2:'Search Console に、スニペットの文章を指定する機能はありません。変えたいときは、ページの本文や meta description を見直します。',3:'title は、検索結果のタイトルリンクに使われる部分です。スニペットとは別です。'},
+ p:'「設定した description が出ない」という相談では、description がページの内容と合っているか、キーワードの羅列になっていないか、全ページ同じ文言になっていないかを確認します。',s:'snippet'},
+{id:31,c:C2,t:'mc',q:'ページ内の特定の部分だけをスニペットに使わせたくない。使うべきものはどれ？',ch:['`data-nosnippet` 属性','`nosnippet` メタタグ','`max-snippet` メタタグ','`noindex`'],a:0,
+ e:'data-nosnippet は HTML 要素に付ける属性で、その部分だけをスニペットから除外できます。nosnippet メタタグはページ全体のスニペット表示を止め、max-snippet はスニペットの最大文字数を指定します。noindex はインデックス登録自体を止めるもので、目的が異なります。',
+ why:{1:'ページ全体のスニペットを止めてしまいます。一部だけを除きたい場合には強すぎます。',2:'スニペットの最大文字数を指定するものです。特定の部分を除く指定ではありません。',3:'ページごとインデックスに登録されなくなります。目的が違います。'},
+ p:'注意書きや条件の文言など、検索結果に切り取られると誤解を招く部分がある場合に data-nosnippet が役立ちます。',s:'snippet'},
+{id:32,c:C2,t:'mc',q:'`<title>` の付け方として、Google のベストプラクティスに沿っているものはどれ？',ch:['ページごとに固有で具体的にし、サイト名は区切り文字で簡潔に添える','全ページで同じキャッチコピーを使う','重要キーワードを言い換えながら繰り返し入れる','日本語ページでも英語で書く'],a:0,
+ e:'title はページごとに固有で、内容を具体的に表すものが推奨です。全ページ同じ文言や、一部だけ変えた定型文（ボイラープレート）では、ページの違いが伝わりません。キーワードの繰り返しは乱用と見なされる可能性があり、本文と異なる言語のタイトルは別のテキストに置き換えられることがあります。サイト名は先頭か末尾に、ハイフンやパイプなどの区切り文字で簡潔に添えます。',
+ why:{1:'全ページで同じだと、ページごとの違いが伝わりません。',2:'キーワードの繰り返しは、Google が避けるよう勧めているやり方です。',3:'日本語のページなら、ユーザーが読める日本語でタイトルを付けるのが自然です。ページの言語に合わせたほうが、内容が伝わります。'},
+ p:'監査では title の重複、空欄、極端に長いものを洗い出します。CMS のテンプレート設定で全ページ同じ title になっているケースはよくあります。',s:'title'},
+{id:33,c:C2,t:'tf',q:'検索結果のタイトルリンクには、ページの `<title>` 要素に書いた文言がそのまま表示される。',a:1,
+ e:'タイトルリンクは title 要素のほか、ページの大見出し、h1 などの見出し、og:title、大きく目立つテキスト、ページ内外のアンカーテキスト、WebSite 構造化データなど複数のソースから自動生成されます。title が空、古い、内容と合わないといった場合、Google は別のテキストを使うことがあります。',
+ p:'「検索結果のタイトルが勝手に変わる」という相談では、title と h1 の内容が食い違っていないか、title が定型文になっていないか、ページに同じ大きさの見出しが複数ないかを確認します。',s:'title'},
+{id:34,c:C2,t:'tf',q:'h1〜h6 を意味的な順番どおりに使わないと、Google 検索のランキングに悪影響がある。',a:1,
+ e:'見出しを意味的な順番にするのはスクリーンリーダーにとって有益ですが、Google 検索にとっては順番どおりでなくても問題ありません。ウェブは正しくない HTML で書かれていることが多いため、Google 検索は HTML 仕様上の意味づけにあまり依存しません。理想的な見出しの数もありません。',
+ p:'見出しの階層修正はアクセシビリティの改善として提案するのは良いことですが、「順位が上がる施策」として売り込むのは不正確です。',s:'starter'},
+{id:82,c:C2,t:'tf',q:'表示の速さや操作のしやすさなど、ユーザーがページを快適に使えるかどうかも、Google が重視している点の一つである。',a:0,
+ e:'Google は、内容の良さに加えて、ページが快適に使えるか（ページエクスペリエンス）も評価する仕組みを持っています。表示の速さ、操作への反応、読み込み中に画面がずれないことなどがその例です。ただし、速さだけで順位が決まるわけではなく、内容が検索した人の役に立つことが前提です。',
+ p:'細かい指標を覚える必要はありません。Search Console の Core Web Vitals レポートが、問題のあるページを「不良」「改善が必要」として示してくれます。改善は開発者の担当になることが多く、SEO 担当としては、どのページで問題が出ているかを伝えられれば十分です。',s:'cwv'},
+{id:37,c:C2,t:'tf',q:'同じ内容の HTTP ページと HTTPS ページがある場合、Google は通常 HTTPS を正規 URL として優先する。',a:0,
+ e:'同じ内容の HTTP と HTTPS のページがあれば、Google は通常 HTTPS を正規 URL として優先します。ただし、SSL 証明書が無効、HTTPS から HTTP へリダイレクトしている、HTTPS ページが HTTP への canonical を持つ、といった競合するシグナルがあると例外になります。',
+ p:'HTTPS 化済みのサイトでも、HTTP から HTTPS への 301、canonical、サイトマップ内の URL がすべて HTTPS でそろっているかを確認します。',s:'canon'},
+{id:38,c:C5,t:'mc',q:'スターターガイドが推奨する URL の形はどれ？',ch:['`https://www.example.com/pets/cats.html`','`https://www.example.com/2/6772756D707920636174`','`https://www.example.com/index.php?id=88213&s=1`','`https://www.example.com/p/a8f3e`'],a:0,
+ e:'推奨は、内容が分かる語を含む `/pets/cats.html` です。URL の各部分は検索結果でパンくずとして表示されることがあり、ユーザーがリンク先を判断する材料になります。`/pets/`（ペット）というディレクトリの中に `cats.html`（猫）がある、という構造も URL から読み取れます。Google は、長い ID 番号より意味のある単語を使うよう勧めています。',
+ why:{1:'`6772756D…` は意味のない英数字の並びです。何のページか、人にも Google にも伝わりません。スターターガイドでも「ユーザーの役に立たない URL」の例として挙げられています。',2:'`id=88213` という番号だけでは中身が分かりません。また `?` 以降のパラメータは、`s=1` や `s=2` のように組み合わせ次第で同じ内容の URL をいくつも生み、重複やクロールの無駄の原因になりがちです。',3:'短くて見た目はすっきりしていますが、`a8f3e` は意味のない文字列で、内容を表していません。短いことよりも、内容が分かることが大切です。'},
+ p:'すでに運用中の URL を、見た目を良くするためだけに変える必要はありません。URL 変更にはリダイレクトの設定が必要で、一時的に順位が揺れることもあります。新しく作るページや、リニューアルの機会に適用するのが現実的です。',s:'starter'},
+{id:39,c:C2,t:'tf',q:'CSS や JavaScript のファイルは、robots.txt でクロールをブロックしておいても問題ない。',a:1,
+ e:'Google は、平均的なユーザーと同じようにページを見ることを目指しています。CSS や JavaScript など重要なリソースがブロックされていると、ページの内容を正しく把握できず、狙った語句で表示されにくくなる可能性があります。robots.txt でリソースをブロックしてよいのは、無くてもページの理解に大きな影響がない場合だけです。',
+ p:'robots.txt でスクリプトやスタイルのディレクトリを丸ごと Disallow していないかは、技術監査の定番チェック項目です。',s:'starter'},
+{id:40,c:C2,t:'tf',q:'フォーラムやコメント欄では、ユーザーが投稿したリンクに nofollow などの注釈が自動で付くよう CMS を設定するのが望ましい。',a:0,
+ e:'フォーラムやコメントでは、リンクを作るのは運営者ではなく他のユーザーです。投稿リンクに nofollow などの注釈が付くように CMS を設定しておけば、自サイトがリンク先と無条件に関連付けられるのを防げます。スパマーに悪用されにくくなる効果もあります。',
+ p:'ugc と nofollow は併記できます（例：rel="ugc nofollow"）。CMS やプラグインの設定画面で確認できることが多いです。',s:'starter'},
+
+// ── コンテンツ・ポリシー
+{id:41,c:C3,t:'mc',q:'「クローキング」の説明として正しいものはどれ？',ch:['ユーザーと検索エンジンに異なるコンテンツを表示すること','期限切れドメインを買って再利用すること','白背景に白文字でテキストを置くこと','同じ語句を不自然に繰り返すこと'],a:0,
+ e:'クローキングは、検索ランキングの操作やユーザーを欺く目的で、検索エンジンとユーザーに異なる内容を見せる行為です。ユーザーエージェントが検索エンジンのときだけテキストやキーワードを挿入する、といった例が挙げられています。他の選択肢はそれぞれ「期限切れドメインの不正使用」「隠しテキスト」「キーワードの乱用」です。',
+ why:{1:'これは「期限切れドメインの不正使用」という、別のスパム行為です。',2:'これは「隠しテキスト」という、別のスパム行為です。ユーザーに見えないだけで、全員に同じ内容が見えている点が違います。',3:'これは「キーワードの乱用」という、別のスパム行為です。'},
+ p:'ハッキングされたサイトでは、所有者に気づかれないよう攻撃者がクローキングを使うことがあります。「ブラウザでは普通なのに検索結果の表示がおかしい」場合は、URL 検査で Google から見たページを確認します。',s:'spam'},
+{id:42,c:C3,t:'tf',q:'アコーディオンやタブで初期状態は非表示になっているコンテンツは、隠しテキストとしてポリシー違反になる。',a:1,
+ e:'アコーディオン、タブ、スライダー、ツールチップなど、ユーザー体験のために表示を切り替える要素はポリシー違反ではありません。違反になるのは、白背景に白文字、画像の背後に置く、CSS で画面外に出す、フォントサイズを 0 にするなど、検索エンジンを操作する目的でユーザーから見えにくくする行為です。',
+ p:'FAQ をアコーディオンにまとめる設計を「隠しテキストになる」として避ける必要はありません。',s:'spam'},
+{id:43,c:C3,t:'mc',q:'Google が上位表示のために推奨しているコンテンツの文字数はどれ？',ch:['決まった文字数はない','2,000文字以上','5,000文字以上','500〜1,000文字'],a:0,
+ e:'上位表示のための決まった文字数はなく、最小値も最大値もありません。むしろ Google は「特定の文字数があると聞いて、それに合わせて書いている」ことを、読者のためではなく検索順位のために書いてしまっている例として挙げ、見直すよう勧めています。',
+ why:{1:'2,000文字という基準はありません。',2:'5,000文字という基準もありません。長いほど評価されるわけではありません。',3:'500〜1,000文字も目安にすぎません。必要な情報が書かれているかが大切です。'},
+ p:'判断基準は文字数ではなく、検索した人の目的を満たす情報がそろっているかです。競合の文字数に合わせるだけの施策は根拠が弱くなります。',s:'helpful'},
+{id:44,c:C3,t:'mc',q:'「大量生成されたコンテンツの不正使用」の考え方として正しいものはどれ？',ch:['作成方法を問わず、ランキング操作を主目的に価値の低いページを大量に作ること','生成 AI で作ったコンテンツはすべて違反','人間が書けば何ページ作っても違反にならない','100ページを超えるサイトは対象になる'],a:0,
+ e:'大量生成されたコンテンツの不正使用は、作成方法を問わず、ユーザーの役に立つことではなく検索ランキングの操作を主な目的として、価値の低いページを大量に作ることです。生成 AI の使用自体が違反なのではなく、価値を加えずに大量生産すること、スクレイピングした内容の言い換え、複数ページのつなぎ合わせなどが該当します。',
+ why:{1:'AI を使うこと自体は違反ではありません。目的が、価値の低いページの大量作成かどうかで決まります。',2:'人が書いても、順位を操作する目的で価値の低いページを大量に作れば対象になります。',3:'ページ数による基準はありません。'},
+ p:'AI でコンテンツを作るクライアントには、人による確認、独自情報の追加、必要に応じた AI 利用の開示を組み込んだ運用を提案します。',s:'spam'},
+{id:45,c:C3,t:'tf',q:'内容をほとんど変えずに、ページの日付だけを新しくして「最新の記事」に見せるのは、Google が避けるよう勧めているやり方である。',a:0,
+ e:'Google は、コンテンツが読者のためではなく検索順位のために作られていないかを自分で確かめるための質問を公開しています。その中で、内容を実質的に変えずに日付だけを更新して新しく見せることは、見直すべきやり方として挙げられています。また、記事を大量に追加したり、古い記事を大量に削除したりして「新しさ」を演出しても、検索順位は上がらないとされています。',
+ p:'リライトでは日付だけでなく、情報の更新や追記など実質的な変更を加えることが前提です。更新内容を記事内に明記すると、読者にも伝わります。',s:'helpful'},
+{id:46,c:C3,t:'mc',q:'「期限切れドメインの不正使用」に当たる例はどれ？',ch:['以前は小学校が使っていたドメインを買い、カジノ関連のコンテンツを掲載する','自社の旧ドメインから新ドメインへ 301 リダイレクトする','ドメインを更新し忘れて一時的にサイトが落ちる','新規取得したドメインで新しいブログを始める'],a:0,
+ e:'期限切れドメインの不正使用は、ドメインが以前持っていた評価を利用する目的で購入し、ユーザーにほとんど価値のない内容を載せる行為です。政府機関、非営利の医療団体、小学校が使っていたドメインで、関係のないアフィリエイトやカジノのコンテンツを扱う例が挙げられています。',
+ why:{1:'自社の旧ドメインから新ドメインへの移転は、正当なサイト移転です。',2:'更新を忘れて一時的に落ちるのは運用上のミスで、不正な利用ではありません。',3:'新規に取得したドメインに新しい内容を載せるのは、通常の運営です。他人が使っていたドメインの評価を狙う購入とは違います。'},
+ p:'中古ドメインの購入を勧められているクライアントには、過去の用途と新しいサイトの内容が合っているかを確認し、評価目当てであればリスクとして指摘します。',s:'spam'},
+{id:47,c:C3,t:'mc',q:'コンテンツを「誰が・どのように・なぜ」作ったかのうち、最も重要な問いとされているのはどれ？',ch:['なぜ','誰が','どのように','いつ'],a:0,
+ e:'「誰が」は著者が誰かを明確にすること、「どのように」は作成過程（商品をどうテストしたか、自動化や AI をどう使ったか）を説明すること、「なぜ」は作成の目的です。中でも「なぜ」が最も重要で、答えが「人の役に立つため」なら Google のシステムが評価する方向に沿っています。主な目的が検索アクセスの獲得なら、方向が誤っています。',
+ why:{1:'「誰が」も大切な問いですが、最も重要とされているのは「なぜ」です。',2:'「どのように」は制作の過程を示す問いです。重要ですが、最も重要とされているのは「なぜ」です。',3:'「いつ」は、「誰が・どのように・なぜ」の3つの問いには含まれていません。'},
+ p:'コンテンツ企画の段階で「この記事は誰のどんな疑問に答えるのか」を言葉にしておくと、「なぜ」に答えられる記事になります。',s:'helpful'},
+{id:64,c:C3,t:'mc',q:'リンクスパムに当たるものはどれ？',ch:['「リンクしてくれたらリンクする」という過剰な相互リンク','関連する自社記事への内部リンク','主張の根拠となる公的資料へのリンク','パンくずリスト'],a:0,
+ e:'リンクスパムは、検索ランキングの操作を主な目的としてリンクを作る行為です。過剰な相互リンクのほか、自動化されたプログラムによるリンク作成、低品質なディレクトリやブックマークサイトのリンク、フォーラムの署名に仕込んだ作為的なリンクなどが例として挙げられています。ユーザーの役に立つ内部リンクや出典へのリンクは問題ありません。',
+ why:{1:'関連する自社記事へのリンクは、ユーザーの役に立つ通常の内部リンクです。',2:'主張の根拠を示すリンクは、信頼性を高める正当なリンクです。',3:'パンくずリストは、ユーザーに現在位置を示すナビゲーションで、スパムではありません。'},
+ p:'被リンク獲得の提案では「リンクを集める」ことではなく「リンクされる価値のあるコンテンツを作り、知ってもらう」ことを軸に説明します。',s:'spam'},
+{id:50,c:C3,t:'tf',q:'著者情報を明記することは E-E-A-T の観点から推奨されるが、架空の人物名や AI 生成の顔写真で専門家に見せかけるのは欺瞞行為とされる。',a:0,
+ e:'誰が書いたかを明確にすると E-E-A-T が伝わりやすくなるため、バイラインや著者の経歴が分かるページへのリンクが推奨されています。一方、架空の名前、AI 生成の顔写真、偽の資格でプロフィールを捏造することは欺瞞行為で、ユーザーにも Google の品質システムにも信頼できないページと判断されます。',
+ p:'著者ページには経歴、専門分野、実績などを載せ、記事のバイラインからリンクします。実在しない監修者を立てる施策は提案しません。',s:'helpful'},
+
+// ── 調査・分析
+{id:51,c:C4,t:'mc',q:'サイトが Google にインデックスされているか、まず手早く確かめるのに使う検索演算子はどれ？',ch:['`site:`','`link:`','`cache:`','`related:`'],a:0,
+ e:'site:example.com のように検索すると、Google がインデックスしている自サイトのページが表示されます。検索結果に自サイトが出れば登録されています。出ない場合は、技術要件を満たしているか確認する段階です。',
+ why:{1:'link: は被リンクを調べるための演算子で、インデックスの確認用ではありません。現在は使えません。',2:'cache: は保存されたコピーを表示するためのもので、提供が終了しています。',3:'related: は似たサイトを探すためのもので、提供が終了しています。'},
+ p:'site: の件数表示はあくまで概算です。正確な登録状況は Search Console のページのインデックス登録レポートで確認します。',s:'starter'},
+{id:52,c:C4,t:'mc',q:'特定ページの HTTP ステータスコードや、Google からの見え方を確認できる Search Console の機能はどれ？',ch:['URL 検査ツール','検索パフォーマンスレポート','リンクレポート','手動による対策レポート'],a:0,
+ e:'URL 検査ツールでは、個別ページの HTTP ステータスコードや、Google がページをどう見ているかを確認できます。インデックス登録の有無、最終クロール日時、Google が選んだ正規 URL なども分かります。',
+ why:{1:'クリック数、表示回数、検索語句を見るレポートです。個別ページの取得状況は分かりません。',2:'被リンクや内部リンクの状況を見るレポートです。',3:'人による対策を受けているかを確認するレポートです。'},
+ p:'修正後は同じツールからインデックス登録をリクエストし、再クロールを促せます。調査と修正確認の両方で最もよく使う機能です。',s:'tech'},
+{id:53,c:C4,t:'mc',q:'トラフィック減少が毎年の季節的な変動かどうかを確認したい。パフォーマンスレポートの期間はどう設定する？',ch:['過去16か月','過去7日間','過去28日間','過去3か月'],a:0,
+ e:'Search Console のパフォーマンスレポートは最大16か月分を表示できます。16か月にすると前年同時期と比べられ、祝祭日やトレンドによる毎年の減少かどうかを判断できます。さらに長期の分析には、Search Analytics API や一括データエクスポートでデータを保存します。',
+ why:{1:'7日間では、季節的な変動かどうかを判断できません。',2:'28日間では、1年の季節変動を見られません。',3:'3か月では、前年の同じ時期と比べられません。'},
+ p:'減少の相談を受けたら、まず16か月表示で前年同時期の形を確認し、季節性を除外してから原因を探します。「比較」タブで前年同期比を出すのも有効です。',s:'drops'},
+{id:54,c:C4,t:'mc',q:'Search Console で「表示回数は変わらないのにクリック数だけ減った」。考えられる原因として最も適切なものはどれ？',ch:['タイトルやスニペットが魅力的でない、または競合のリッチリザルトに負けている','サイト全体がインデックスから削除された','robots.txt でサイト全体をブロックした','サーバーがダウンしている'],a:0,
+ e:'表示回数が変わらずクリックだけ減っているのは、検索結果には出ているのに選ばれていない状態です。タイトルやスニペットが内容を伝えきれていないか、競合サイトがより目立つリッチリザルトを出している可能性があります。インデックス削除やサーバーダウンなら、表示回数も減るはずです。',
+ why:{1:'インデックスから削除されたのなら、表示回数も減るはずです。',2:'サイト全体をブロックしたのなら、表示回数も減るはずです。',3:'サーバーがダウンしているのなら、表示回数も減るはずです。'},
+ p:'該当クエリで実際に検索し、自サイトと競合の表示を見比べるのが早い確認方法です。改善策はタイトルとディスクリプションの見直し、構造化データの検討です。',s:'drops'},
+{id:55,c:C4,t:'mc',q:'検索トラフィックの減少が自サイトだけの問題か、業界全体の需要変化かを見極めるのに役立つツールはどれ？',ch:['Google トレンド','PageSpeed Insights','リッチリザルト テスト','robots.txt テスター'],a:0,
+ e:'Google トレンドでは、検索キーワードへの関心が時期や地域でどう変化しているかを確認できます。トラフィックを生んでいる主要クエリの推移を見れば、減少が自サイトだけの問題か、季節性や興味の変化による需要全体の減少かを判断できます。',
+ why:{1:'ページの表示速度を測るツールです。検索需要の変化は分かりません。',2:'構造化データがリッチリザルトの対象になるかを調べるツールです。',3:'robots.txt の記述を確認するツールです。需要の変化とは関係がありません。'},
+ p:'需要自体が減っているならサイトの不具合ではありません。慌てて修正するより、関連して伸びているクエリに向けたコンテンツを検討します。',s:'drops'},
+{id:56,c:C4,t:'mc',q:'スパムポリシー違反で人による対策を受けていないか確認するには、Search Console のどこを見る？',ch:['手動による対策レポート','Core Web Vitals レポート','サイトマップレポート','リンクレポート'],a:0,
+ e:'Google が人による審査でスパムポリシー違反と判断し対策を行った場合、Search Console の手動による対策レポートに表示されます。マルウェアやフィッシングなどの問題は、セキュリティの問題レポートで確認します。',
+ why:{1:'表示の快適さを見るレポートです。手動による対策は表示されません。',2:'送信したサイトマップの処理状況を見るレポートです。',3:'リンクの状況を見るレポートです。対策の有無は分かりません。'},
+ p:'急な大幅下落の調査では、手動による対策とセキュリティの問題の2つのレポートを最初に確認し、該当がないことを確かめてから他の原因を探します。',s:'drops'},
+{id:57,c:C4,t:'tf',q:'成果が出ていたページの検索順位が、2位から4位に下がった。すぐに内容を大きく書き直すべきである。',a:1,
+ e:'すぐに大きく書き直すのは避けた方がよいとされています。2位から4位のような小さな順位変動は常に起こり、何もしなくても戻ることがあります。すでに成果が出ているページを大きく変えると、かえって良かった部分を損なうおそれもあります。一方、4位から29位のような大幅な低下が起きている場合は、サイト全体が有用で信頼できるものになっているかを自己評価します。',
+ p:'順位変動を報告するときは、変動の幅、影響を受けたクエリやページの範囲、Google のランキング更新の時期と重なるかを整理して伝えます。',s:'drops'},
+{id:58,c:C4,t:'mc',q:'robots.txt でブロックされたページが検索結果に出てしまった。そのときの見え方として正しいものはどれ？',ch:['URL は表示されるが、説明文は表示されない','タイトルと説明文が通常どおり表示される','画像だけが表示される','「このページは削除されました」と表示される'],a:0,
+ e:'robots.txt でブロックされたページはクロールされないため、Google は内容を取得できません。他のページからリンクされていると URL だけがインデックスされ、説明文なしで検索結果に出ることがあります。この場合のタイトルは、他サイトのアンカーテキストなどページ外の情報から作られることがあります。',
+ why:{1:'Google は内容を取得できていないので、通常どおりのタイトルと説明文は出せません。',2:'画像だけが表示される、という仕組みではありません。',3:'そのような表示は出ません。ブロックは「内容を読めない」だけで、削除の意味ではありません。'},
+ p:'消したい場合は robots.txt のブロックを外して noindex を設定します。ブロックしたままでは noindex が読まれません。',s:'robots'},
+{id:59,c:C4,t:'mc',q:'検索結果に出したいのに Google がアクセスできていないページを洗い出すとき、併せて確認すべき Search Console のレポートはどれ？',ch:['ページのインデックス登録レポートとクロールの統計情報レポート','パフォーマンスレポートとリンクレポート','手動による対策レポートとセキュリティの問題レポート','Core Web Vitals レポートとサイトマップレポート'],a:0,
+ e:'ページのインデックス登録レポートは、各 URL が登録されているか、されていなければその理由（noindex、robots.txt によるブロック、404 など）を示します。クロールの統計情報レポートは、Googlebot のリクエスト数、応答時間、エラーなどクロールの状況を示します。含まれる情報が異なるため、両方の確認が推奨されています。',
+ why:{1:'この2つは検索での成果とリンクの状況を見るもので、アクセスできない理由は分かりません。',2:'人による対策やセキュリティの問題を見るレポートです。アクセスできない原因を調べるものではありません。',3:'Core Web Vitals は表示の快適さ、サイトマップレポートは送信したサイトマップの処理状況です。クロールの問題は見えません。'},
+ p:'インデックス登録レポートの「登録されていない理由」の内訳は、技術的な問題を見つける最初の手がかりになります。件数の多い理由から順に確認します。',s:'tech'},
+{id:60,c:C4,t:'mc',q:'検索トラフィックが急減した。サイト全体の技術的な問題を疑うときに最初に見るべきものはどれ？',ch:['クロールの統計情報レポートとページのインデックス登録レポートで問題の急増がないか','Google トレンドの検索ボリューム','競合サイトの被リンク数','Core Web Vitals の推移'],a:0,
+ e:'サーバーエラー、robots.txt の取得失敗、ページが見つからない（404）、noindex の誤設置などは、Google のクロールやインデックス登録を妨げる技術的な問題です。こうした問題は、クロールの統計情報レポートやページのインデックス登録レポートに急増として現れます。サイト全体のダウンなら急落、noindex の誤設置ならクロールに合わせて緩やかに減る、というグラフの形も手がかりです。',
+ why:{1:'検索需要の変化を見るものです。サイト側の技術的な問題の確認は、その後です。',2:'競合の被リンクは、自サイトのトラフィックが急に減った原因を調べる手がかりにはなりません。',3:'表示の快適さの指標は、急減の原因として優先度が低く、最初には見ません。'},
+ p:'リニューアル直後の急落では、開発環境用の noindex や robots.txt の Disallow が本番に残っていないかを真っ先に確認します。',s:'drops'},
+{id:69,c:C4,t:'mc',q:'Search Console で「ソフト 404」と報告されたページ。ブラウザで開くと内容はきちんと表示される。まず確認すべきことはどれ？',ch:['URL 検査の「公開 URL をテスト」で、Google に見えているページが空やエラー表示になっていないか','robots.txt に Disallow を追加する','ページを削除して作り直す','meta description を書き直す'],a:0,
+ e:'人には表示されているのに Google からソフト 404 と判定される場合、Google が取得したページでは内容が表示されていない可能性があります。URL 検査ツールで公開 URL をテストし、「テスト済みのページを表示」から Google に見えている HTML やスクリーンショットを確認できます。',
+ why:{1:'Disallow を追加すると、Google がクロールできなくなり、原因の確認ができなくなります。',2:'原因がまだ分かっていない段階で、削除するのは早すぎます。',3:'meta description の書き方が、ソフト 404 の判定を左右するわけではありません。'},
+ p:'JavaScript で内容を読み込むページで、読み込みに失敗して中身が空になっているケースがよくあります。テスト結果と実際の画面を見比べると原因を絞り込めます。',s:'pir'},
+
+// ── URLの構造（fig:'url' で URL の図解を表示、hl は強調する部分）
+{id:71,c:C5,t:'mc',fig:'url',hl:'domain',q:'`https://www.example.com/pets/cats.html` の「ドメイン」に当たる部分はどれ？',ch:['`example.com`','`https://www`','`/pets/cats.html`','`cats.html`'],a:0,
+ e:'ドメインはサイトの住所にあたる名前で、この URL では `example.com` です。前に付く `www` はサブドメインと呼ばれ、`www.example.com` 全体はホスト名と呼びます。ドメイン末尾の `.com` は TLD（トップレベルドメイン）です。',
+ why:{1:'`https://` はプロトコル（スキーム）、`www` はサブドメインで、どちらもドメインではありません。',2:'ドメインより後ろの部分で、パスと呼びます。',3:'パスの最後の部分で、ファイル名（スラッグ）と呼びます。'},
+ p:'現場では `www.example.com` まで含めて「ドメイン」と呼ぶことも多いです。Search Console のプロパティは、`example.com` 全体をまとめて見る「ドメイン」と、`https://www.example.com/` のように URL 単位で見る「URL プレフィックス」から選ぶので、違いを押さえておくと設定時に迷いません。',s:'url'},
+{id:72,c:C5,t:'mc',fig:'url',hl:'path',q:'`https://www.example.com/pets/cats.html` の「パス」に当たる部分はどれ？',ch:['`/pets/cats.html`','`www.example.com`','`https://`','`.com`'],a:0,
+ e:'パスは、ホスト名（`www.example.com`）より後ろの、サイトの中での場所を示す部分です。この URL では `/pets/cats.html` がパスです。パスの中で `/pets/` のようにフォルダに当たる部分をディレクトリ、最後の `cats.html` をファイル名（スラッグ）と呼びます。',
+ why:{1:'ホスト名です。サブドメイン `www` とドメイン `example.com` を合わせたものです。',2:'プロトコル（スキーム）です。通信の方式を表します。',3:'TLD（トップレベルドメイン）です。'},
+ p:'Search Console のパフォーマンスレポートでは、ページの URL に条件を付けて絞り込めます。`/blog/` のようにパスの一部で絞ると、ディレクトリごとの成果を比べられます。',s:'url'},
+{id:73,c:C5,t:'mc',fig:'url',hl:'dir',q:'`https://www.example.com/pets/cats.html?sort=price` で「ディレクトリ」に当たる部分はどれ？',ch:['`/pets/`','`cats.html`','`www`','`?sort=price`'],a:0,
+ e:'ディレクトリは、パスの中でフォルダのように分類を表す部分です。`/pets/`（ペット）という分類の中に `cats.html`（猫のページ）が入っている構造です。`/pets/dogs/` のように何階層にもでき、階層の中にある階層をサブディレクトリと呼びます。スターターガイドでは、似たトピックのページを同じディレクトリにまとめると、Google がディレクトリごとの更新頻度を学習しやすくなると説明しています。',
+ why:{1:'ファイル名（スラッグ）です。ディレクトリの中にある個別のページを指します。',2:'サブドメインです。ドメインの前に付く部分で、ディレクトリとは別物です。',3:'パラメータ（クエリ文字列）です。'},
+ p:'サイト分析では「/blog/ 配下」「/products/ 配下」のように、ディレクトリ単位でアクセスや順位を集計することがよくあります。URL 設計の段階でトピックごとにディレクトリを分けておくと、後の分析もしやすくなります。',s:'starter'},
+{id:74,c:C5,t:'mc',fig:'url',hl:'param',q:'`https://www.example.com/pets/cats.html?sort=price` の `?sort=price` の部分は何と呼ぶ？',ch:['パラメータ（クエリ文字列）','フラグメント','サブディレクトリ','TLD'],a:0,
+ e:'URL の `?` 以降はパラメータ（クエリ文字列、URL パラメータとも）と呼びます。`キー=値` の形で書き、複数あるときは `&` でつなぎます（例：`?sort=price&color=black`）。並び替え、絞り込み、アクセス計測用のタグなどでよく使われます。',
+ why:{1:'フラグメントは `#` 以降の部分です。',2:'サブディレクトリは `/pets/` のような、パスの中の階層です。',3:'TLD はドメイン末尾の `.com` などです。'},
+ p:'パラメータは同じ内容の URL を大量に増やす原因になりがちで、Google はコンテンツに影響しないパラメータを減らすよう勧めています。監査では、並び替えや計測用のパラメータ付き URL がインデックスされていないか、canonical タグで正規 URL を指しているかを確認します。',s:'url'},
+{id:75,c:C5,t:'mc',fig:'url',hl:'frag',q:'`https://www.example.com/pets/cats.html#reviews` の `#reviews` の部分について正しいものはどれ？',ch:['フラグメントと呼ばれ、Google は通常これを別ページとして扱わない','パラメータと呼ばれ、別ページとしてインデックスされる','サブドメインと呼ばれる','ディレクトリと呼ばれる'],a:0,
+ e:'`#` 以降はフラグメント（アンカー）と呼び、ページ内の特定の位置を示すために使います。検索エンジンは通常フラグメントに対応しておらず、`#reviews` が付いていても同じページとして扱います。そのため、`#` の後ろを変えて内容を切り替える作りにすると、Google にはそれぞれが別のページとして認識されません。',
+ why:{1:'パラメータは `?` 以降の部分です。',2:'サブドメインは、ドメインの前に付く `www` などです。',3:'ディレクトリは、`/pets/` のようなパスの中の階層です。'},
+ p:'`https://example.com/#/potatoes` のように `#` の後ろでページを切り替えるサイト（JavaScript で作られたサイトに見られます）は、各ページが検索に出ない原因になります。開発側には、History API を使って通常の URL で切り替える方法を相談します。',s:'url'},
+{id:76,c:C5,t:'mc',q:'`blog.example.com` と `example.com/blog/` の違いとして正しいものはどれ？',ch:['前者はサブドメイン、後者はサブディレクトリ','前者はサブディレクトリ、後者はサブドメイン','どちらもサブドメイン','どちらも別のドメイン（別サイト）'],a:0,
+ e:'ドメインの前に付けて区切るのがサブドメイン（`blog.example.com`）、パスの中に作る階層がサブディレクトリ（`example.com/blog/`）です。どちらも `example.com` というドメインの一部です。Google のスターターガイドでは、どちらを選ぶかはビジネス上意味のある方でよいとしています。',
+ why:{1:'逆です。ドメインの前にあるのがサブドメイン、スラッシュの後ろにあるのがサブディレクトリです。',2:'`example.com/blog/` はパスの中の階層なので、サブディレクトリです。',3:'どちらも同じドメイン `example.com` の一部です。'},
+ p:'「サブディレクトリの方が SEO に強い」という意見もよく聞きますが、Google の説明では、どちらを選んでも構いません。管理のしやすさや運用体制で選び、途中で変える場合はリダイレクトを用意します。',s:'starter'},
+{id:77,c:C5,t:'tf',fig:'url',hl:'scheme',q:'URL 先頭の `https` の部分はプロトコル（スキーム）と呼ばれ、`http://example.com/` と `https://example.com/` は別々の URL として扱われる。',a:0,
+ e:'URL 先頭の `http` や `https` はプロトコル（スキーム）と呼ばれ、通信の方式を表します。`https` は通信が暗号化された方式です。プロトコルが違えば別の URL なので、同じ内容が両方で表示されると重複になります。重複している場合、Google は通常 HTTPS の方を正規 URL として優先します。',
+ p:'HTTPS 化したサイトでは、http の URL から https へ 301 リダイレクトされているかを確認します。同じように、www の有無（`www.example.com` と `example.com`）も別の URL なので、どちらかに統一してリダイレクトします。',s:'canon'},
+{id:78,c:C5,t:'mc',q:'`https://www.example.co.jp/` で TLD（トップレベルドメイン）に当たるのはどれ？',ch:['`.jp`','`.co.jp`','`www`','`example`'],a:0,
+ e:'TLD は、ドメインの一番右にある部分です。この例では `.jp` が TLD で、日本の国別コードの TLD（ccTLD）です。`.co.jp` は TLD の1つ左の `.co` まで含めた区分で、日本の企業向けの「属性型 JP ドメイン」と呼ばれます。`.com` や `.org` のように国に結びつかない TLD は gTLD と呼ばれます。',
+ why:{1:'`.co` は TLD の1つ左の階層で、`.co.jp` 全体が TLD というわけではありません。',2:'サブドメインです。',3:'ドメインのうち、サイトごとに取得する名前の部分です。'},
+ p:'Google 検索では、TLD が意味を持つのは特定の国のユーザーを狙う場合だけで、その影響も弱いとされています。.jp と .com のどちらにするかは、ブランドや信頼感で決めて構いません。',s:'starter'},
+{id:79,c:C5,t:'mc',q:'URL の中で単語を区切るとき、Google が推奨している書き方はどれ？',ch:['`/summer-clothing/`（ハイフン）','`/summer_clothing/`（アンダースコア）','`/summerclothing/`（つなげて書く）','`/SummerClothing/`（大文字で区切る）'],a:0,
+ e:'単語の区切りにはハイフン（-）を使うのが推奨です。ハイフンの方が、ユーザーにも検索エンジンにも単語の区切りとして理解されやすいためです。',
+ why:{1:'アンダースコア（_）は、ハイフンほど単語の区切りとして認識されやすくないとされています。',2:'単語をつなげると、どこで区切れるのか分かりにくくなります。Google の例でも `greendress` のような書き方は良くない例に挙げられています。',3:'URL は大文字と小文字が区別されるため、表記ゆれから別の URL が生まれる原因になります。'},
+ p:'既存 URL のアンダースコアをハイフンに直すためだけに URL を変える必要はありません。URL 変更にはリダイレクトと一時的な順位の揺れが伴うので、新しく作るページから適用します。',s:'url'},
+{id:80,c:C5,t:'tf',q:'`example.com/APPLE` と `example.com/apple` は、Google にとって同じ URL として扱われる。',a:1,
+ e:'URL のパス部分は大文字と小文字が区別されるため、`/APPLE` と `/apple` は別の URL として扱われます。同じ内容が両方で表示されると重複になるので、どちらかに統一します。',
+ p:'CMS やサーバーの設定によっては、大文字・小文字の違う URL でも同じページが表示されてしまいます。監査で見つけたら、統一した方へ 301 リダイレクトするか、canonical タグを設定します。',s:'url'},
+{id:81,c:C5,t:'tf',q:'セッション ID のように内容に影響しないパラメータは、URL に付けず Cookie で管理するのが望ましい。',a:0,
+ e:'参照元、並べ替え、セッション ID など、ページの内容を変えないパラメータは、同じ内容の URL を大量に増やし、クロールの無駄や重複の原因になります。Google は、こうしたパラメータを減らすこと、セッション ID は URL ではなく Cookie で扱うことを勧めています。',
+ p:'サイト内検索の結果ページや、絞り込み条件の組み合わせで生まれる URL も、同じように大量に増えがちです。問題になる URL は robots.txt でクロールをブロックする方法が案内されています。',s:'url'},
+
+// ── 追加分：構造化データ・Search Console・キーワード・リンク（Google 由来）
+{id:168,c:C2,t:'mc',q:'構造化データの書き方（形式）のうち、Google が実装・管理しやすいとして推奨しているものはどれ？',ch:['JSON-LD','Microdata（マイクロデータ）','RDFa','meta keywords タグへの記述'],a:0,
+ e:'構造化データには JSON-LD、Microdata、RDFa の3つの形式があり、Google はどれも使えるとしたうえで、実装と管理が最も簡単な JSON-LD を推奨しています。JSON-LD は HTML の script タグの中にまとめて書くので、ユーザーに見える本文のタグに手を入れずに済みます。',
+ why:{1:'Microdata も有効な形式ですが、本文の HTML タグの中に書き込むため、管理が大変になりやすい形式です。Google が推奨しているのは JSON-LD です。',2:'RDFa も有効な形式ですが、推奨されているのは JSON-LD です。',3:'meta keywords は構造化データの形式ではなく、Google も検索に使っていません。'},
+ p:'構造化データを入れたいクライアントには、まず CMS やプラグインで JSON-LD を出力できるかを確認します。すでに Microdata で正しく実装されているなら、無理に書き換える必要はありません。',s:'sd'},
+{id:169,c:C2,t:'mc',q:'構造化データを多数のページに実装した後、公開済みのサイト全体で有効かどうかを確認し続けるのに使う Search Console の機能はどれ？',ch:['リッチリザルトのステータス レポート','パフォーマンスレポート','手動による対策レポート','サイトマップレポート'],a:0,
+ e:'リッチリザルトのステータス レポートは、公開後の構造化データが有効かを確認するためのものです。テンプレートや配信の仕組みの影響で、公開後にページの状態が損なわれることがあるため、実装時のテストだけでなく、公開後の確認も欠かせません。開発中の検証には「リッチリザルト テスト」、1ページずつの確認には URL 検査ツールが使えます。',
+ why:{1:'クリック数や表示回数を見るレポートです。構造化データが有効かどうかは分かりません。',2:'人による対策を受けているかを確認するレポートです。',3:'送信したサイトマップの処理状況を見るレポートです。'},
+ p:'構造化データの施策では、実装後にエラーと警告の数がどう推移するかをレポートで追います。テンプレートを変更したあとの不具合にも、早く気づけます。',s:'sd'},
+{id:170,c:C2,t:'mc',q:'商品ページに構造化データを追加したが、その機能で必須とされているプロパティが一部入っていない。起こりやすいのはどれ？',ch:['リッチリザルトの表示対象にならない','手動による対策（ペナルティ）を受ける','ページがインデックスから削除される','サイト全体の順位が下がる'],a:0,
+ e:'必須プロパティをすべて含めることは、リッチリザルトとして表示されるための前提条件です。足りないだけなら、そのページがリッチリザルトの対象にならないだけで、ペナルティやインデックスからの削除にはつながりません。なお、必須プロパティを入れても、表示は保証されません。推奨プロパティは多いほど表示されやすくなる傾向がありますが、不完全で不正確なデータを多く入れるより、少なくても完全で正確なデータを入れることが大切です。',
+ why:{1:'手動による対策は、マークアップがガイドラインに反する悪質な場合などに受けるものです。プロパティが足りないだけでは受けません。',2:'足りないのはリッチリザルト用の情報だけで、ページ自体のインデックス登録には影響しません。',3:'構造化データの不足が、サイト全体の順位に直結するとはされていません。'},
+ p:'リッチリザルト テストでは、エラーと警告を区別して見ます。必須の不足などのエラーは表示対象外になる原因なので優先して直し、推奨プロパティの不足などの警告は、余力があれば対応します。',s:'sd'},
+{id:171,c:C4,t:'mc',q:'Search Console のパフォーマンスレポートで、どの検索語句でサイトが表示・クリックされたかを見るには、どの項目（タブ）を使う？',ch:['クエリ','ページ','国','デバイス'],a:0,
+ e:'「クエリ」は、ユーザーが入力した検索語句ごとにデータをまとめます。ほかに、URL ごとに見る「ページ」、国ごとに見る「国」、端末ごとに見る「デバイス」などがあります。特定のページがどんな語句で見られているかを知りたいときは、そのページで絞り込んだうえで「クエリ」を見ます。',
+ why:{1:'「ページ」は URL ごとにデータをまとめる項目です。',2:'「国」は国ごとにデータをまとめる項目です。',3:'「デバイス」は、パソコンやスマホなど、使われた端末ごとにデータをまとめる項目です。'},
+ p:'「どんな語句で来ているか」「狙っていない語句で表示されていないか」を見る作業の出発点です。ページごとに主なクエリを確認すると、タイトルや見出しの改善案を出しやすくなります。',s:'sc'},
+{id:172,c:C4,t:'tf',q:'Search Console でサイトのデータを見るには、そのサイトの所有権を確認する手続きが必要である。',a:0,
+ e:'Search Console のデータには、サイトに関する Google 検索の情報が含まれ、サイトの表示や動作に影響する操作もできます。そのため、実際の所有者であることを確認した人にだけ権限が与えられます。',
+ p:'新規のクライアントでは、最初に Search Console の権限をもらえるかを確認します。確認済みの所有者が一人もいなくなると、そのサイトにアクセスできる人がいなくなるため、所有者を複数にしておくよう提案します。',s:'sc'},
+{id:173,c:C4,t:'tf',q:'Search Console のパフォーマンスレポートだけでは、検索から来た訪問者が、サイト内で購入や問い合わせをしたかどうかは分からない。',a:0,
+ e:'パフォーマンスレポートで分かるのは、検索結果での表示回数、クリック数、CTR、平均掲載順位などです。訪問した後の行動（購入、問い合わせなど）は、Google アナリティクスのような、サイト内の計測ツールで測ります。',
+ p:'成果を報告するときは、「検索結果での見え方とクリック」は Search Console、「訪問した後の成果」は Google アナリティクス、というように、役割を分けて説明します。',s:'sc'},
+{id:174,c:C4,t:'tf',q:'Search Console にサイトを登録すると、登録していないサイトに比べて、検索順位が上がる。',a:1,
+ e:'Search Console は、サイトが検索でどう見えているかを確認し、問題を見つけるためのツールで、登録しても順位は変わりません。登録していなくても、Google はサイトをクロールし、検索結果に表示します。',
+ p:'「Search Console を入れれば順位が上がる」という説明は誤りです。「問題の発見や、施策の効果測定ができるツール」として案内します。',s:'starter'},
+{id:175,c:C6,t:'mc',q:'クライアントの社内では製品を「ソリューション」と呼んでいるが、ユーザーは「業務効率化 ツール」で検索している。最初にすべきことはどれ？',ch:['ユーザーが実際に使っている検索語句を調べ、ページの言葉に反映する','社内で使っている呼び方に、全ページを統一する','「ソリューション」を meta keywords に大量に入れる','検索語句は気にせず、製品名だけを書く'],a:0,
+ e:'検索する人が使う言葉と、運営者が使い慣れた言葉は、同じとは限りません。Google のスターターガイドも、ユーザーが検索に使いそうな言葉を考えて書くよう勧めています。まず Search Console のクエリや、検索結果、検索候補などで実際の語句を確認し、タイトル・見出し・本文の言葉に反映します。',
+ why:{1:'社内の呼び方に統一すると、ユーザーが使う言葉とのずれが残り、ページが検索語句と結びつきにくくなります。',2:'Google は meta keywords を検索に使っていないので、効果がありません。',3:'製品名を知らない人は、製品名では検索しません。ユーザーが使う言葉がないと、そうした人には届きません。'},
+ p:'新規案件のヒアリングでは、クライアントの社内用語と、顧客が使う言葉が違うことがよくあります。最初に、両者の対応表をつくっておくと、その後のキーワード調査や改善案がぶれません。',s:'starter'},
+{id:176,c:C6,t:'mc',q:'ページの内容に合った検索語句で見つけてもらいたい。本文での言葉の使い方として適切なものはどれ？',ch:['ユーザーが検索しそうな言葉を、文脈の中で自然に使う','同じキーワードを、不自然なほど繰り返す','見出しにだけキーワードを入れ、本文では使わない','検索されていない造語に統一する'],a:0,
+ e:'Google は、ユーザーが検索しそうな言葉を、ページの中で自然に使うことを勧めています。同じ語句を不自然に繰り返す「キーワードの乱用」は、スパムポリシーで避けるべきとされているやり方です。',
+ why:{1:'キーワードの乱用に当たり、スパムポリシーで避けるべきとされています。読みにくくなり、ユーザーの役にも立ちません。',2:'本文にも関連する言葉がないと、ページの内容が伝わりません。',3:'検索されない言葉では、ユーザーの検索語句と結びつきません。'},
+ p:'「キーワードを何回入れるか」という数の議論はしません。読み返して不自然でないか、ページの主題に必要な関連語が文脈の中にあるかで判断します。',s:'spam'},
+{id:177,c:C7,t:'mc',q:'Google がリンクとして認識し、たどれる書き方はどれ？',ch:['`<a href="/products">商品一覧</a>`','`<span href="/products">商品一覧</span>`','`<a onclick="openProducts()">商品一覧</a>`','`<a href="javascript:openProducts()">商品一覧</a>`'],a:0,
+ e:'Google がリンクをたどれるのは、基本的に href 属性を持つ a 要素です。href の値は、クローラーがアクセスできる実際の URL でなければなりません。span 要素や、onclick などスクリプトのイベントだけで動くリンクは、URL を取得できない場合があります。',
+ why:{1:'span 要素に href を付けても、Google が解析できない場合があります。href を付けた a 要素を使います。',2:'href のない a 要素では、URL を確実に取得できません。スクリプトのイベントだけで動くリンクは、たどれない場合があります。',3:'href の値が JavaScript の呼び出しだと、実際の URL に解決できない可能性があります。'},
+ p:'メニューやボタンを JavaScript で動かしているサイトでは、URL 検査の「公開 URL をテスト」で、レンダリング後の HTML を開き、リンクが a 要素の href になっているかを確認します。',s:'links'},
+{id:178,c:C7,t:'tf',q:'画像をリンクにした場合、その画像の alt 属性が、アンカーテキストの代わりとして使われる。',a:0,
+ e:'画像のリンクには、文字のアンカーテキストがありません。Google は img 要素の alt 属性をアンカーテキストの代わりとして使うので、リンク先の内容が分かる説明を書きます。',
+ p:'ロゴやバナー画像をリンクにしているサイトでは、alt が空だったり、「バナー」のような意味のない文字になっていないかを確認します。',s:'links'},
+{id:179,c:C7,t:'mc',q:'重要なページなのに、サイト内のほかのどのページからもリンクされていない。最初にすべきことはどれ？',ch:['同じサイト内の関連ページから、内容が分かるアンカーテキストでリンクする','ページに meta keywords を追加する','robots.txt でそのページへのクロールを許可する','canonical タグを別のページに向ける'],a:0,
+ e:'Google は主にリンクをたどってページを見つけるため、どこからもリンクされていないページは、見つけてもらいにくくなります。重要なページには、同じサイト内の別のページから、少なくとも1つはリンクを張るよう勧められています。アンカーテキストは、リンク先の内容が分かる言葉にします。',
+ why:{1:'meta keywords は検索に使われておらず、リンクの代わりにもなりません。',2:'ブロックしていなければ、クロールはすでに許可された状態です。リンクがないという問題は解決しません。',3:'canonical を別のページに向けると、このページが正規として扱われなくなる恐れがあります。'},
+ p:'サイト監査では、クロールツールで内部リンクの数を出し、リンクが0本のページを洗い出します。新規ページを公開するときに、カテゴリページや関連記事からリンクを張る手順を運用に入れるよう提案します。',s:'links'},
+// ══ ここから Moz Beginner’s Guide to SEO 由来（o:'moz'）。Google の説明と食い違う点は Google を正として補足
+// ── 仕組み・用語
+{id:101,o:'moz',c:C1,t:'mc',q:'SEO の文脈で「オーガニック検索（自然検索）」が指すものはどれ？',ch:['広告枠を除いた、通常の検索結果','検索結果の上部などに表示される広告枠','SNS の中での検索結果','料金を払って掲載順位を上げた検索結果'],a:0,
+ e:'オーガニック検索（自然検索）は、広告ではない通常の検索結果のことです。Moz は SEO を「広告ではないオーガニック検索結果から、サイトへの訪問の質と量を高める取り組み」と定義しています。オーガニック検索の掲載はお金では買えず、コンテンツや技術面の取り組みで獲得するものです。',
+ why:{1:'これは検索広告で、オーガニック検索とは別枠です。',2:'SNS の中の検索は、検索エンジンのオーガニック検索とは別のものです。',3:'Google はオーガニック検索の掲載順位を上げるために金銭を受け取りません。'},
+ p:'アクセス解析では、流入元を「オーガニック検索」「SNS」などのチャネルに分けて見ます。他のチャネルの増減で全体の流入が変わっただけなのに「SEO が悪化した」と誤解されることがあるので、SEO の成果はオーガニック検索に絞って報告します。',s:'m1'},
+{id:102,o:'moz',c:C1,t:'mc',q:'「SERP」とは何のこと？',ch:['検索結果ページ（Search Engine Results Page）','サイト内のすべての URL を一覧にしたファイル','検索エンジンのクローラー','検索順位を予測する指標'],a:0,
+ e:'SERP は Search Engine Results Page の略で、検索したときに表示される検索結果ページのことです。「サープ」と読みます。今の SERP には、通常の検索結果（いわゆる「10本の青いリンク」）だけでなく、強調スニペット、地図付きのローカルパック、画像のカルーセルなど、さまざまな表示が並びます。',
+ why:{1:'サイトマップのことです。',2:'クローラー（Googlebot など）のことです。',3:'Moz のドメインオーソリティなど、ツール独自の指標のことです。'},
+ p:'クライアントとの会話でも日常的に使う言葉です。狙うキーワードで実際に検索し、SERP にどんな表示が並んでいるかを見るのが、キーワード分析の基本になります。',s:'m1'},
+{id:103,o:'moz',c:C1,t:'mc',q:'強調スニペット、「他の人はこちらも質問」、ローカルパックなど、通常の青いリンク以外の検索結果の表示をまとめて何と呼ぶ？',ch:['SERP 機能','被リンク','クロールバジェット','canonical タグ'],a:0,
+ e:'通常の検索結果とは違う形式の表示を、まとめて SERP 機能（SERP features）と呼びます。強調スニペット（検索結果の上部に答えを枠で表示）、「他の人はこちらも質問」、ローカルパック（地図と店舗の一覧）、ナレッジパネル、サイトリンクなどがあります。Moz によると、SEO で表示を狙えるものもあれば、Wikipedia などの特定のデータ源から作られ、SEO では影響を与えにくいものもあります。',
+ why:{1:'他サイトから自サイトへ張られたリンクのことです。',2:'Googlebot がサイトをクロールする量の目安のことです。',3:'正規 URL を指定するタグのことです。'},
+ p:'SERP 機能が多く並ぶキーワードでは、1位でも通常の検索結果が画面の下に押し下げられ、クリックが減ることがあります。順位だけでなく、そのキーワードの SERP の見た目も含めて流入を見込むのが実務的です。',s:'m2'},
+{id:104,o:'moz',c:C1,t:'tf',q:'「ホワイトハット SEO」は検索エンジンのガイドラインに沿った手法、「ブラックハット SEO」は検索エンジンを欺こうとする手法を指す。',a:0,
+ e:'ホワイトハット SEO は、ガイドラインに沿い、ユーザーに価値を提供することを重視した手法です。ブラックハット SEO は、クローキングやリンクの購入など、検索エンジンを欺いて順位を上げようとする手法です。Moz は、ブラックハットは一時的に効くことがあっても、ペナルティやインデックスからの削除という大きなリスクを伴うと警告しています。',
+ p:'SEO 業者の提案に「すぐに順位が上がる」「被リンクを大量に用意する」といった内容があれば、ブラックハットを疑います。ペナルティで集客を失い、事業が傾いた例もあります。',s:'m1'},
+{id:105,o:'moz',c:C1,t:'mc',q:'「クロールバジェット」の説明として正しいものはどれ？',ch:['Googlebot がサイトでクロールする URL の量の目安。主に大規模サイトで重要になる','SEO 施策に使える月々の予算','サイトマップに書ける URL の上限数','1ページに置けるリンクの上限数'],a:0,
+ e:'クロールバジェットは、Googlebot がサイトでクロールする URL の量の目安です。数万 URL を超えるような大規模サイトでは、重要でない URL（並び替えや絞り込みで生まれるパラメータ付き URL など）にクロールが使われると、重要なページのクロールが後回しになるおそれがあります。小規模なサイトではほとんど気にする必要はありません。',
+ why:{1:'お金の予算とは関係ありません。',2:'サイトマップのファイルにも上限はありますが、クロールバジェットとは別の話です。',3:'リンク数の話ではありません。'},
+ p:'EC サイトなどで絞り込み条件の組み合わせから大量の URL が生まれている場合は、robots.txt でクロールを制御する対策を検討します。ただし、noindex や canonical タグを設定したページを robots.txt でブロックすると、その指示が読まれなくなる点に注意します。',s:'m2'},
+{id:106,o:'moz',c:C1,t:'tf',q:'Moz の「ドメインオーソリティ（DA）」は、Google が検索順位の決定に使っている公式の指標である。',a:1,
+ e:'ドメインオーソリティ（DA）は Moz が独自に算出している指標で、サイトが検索結果で上位に表示される力を予測するものです。Google の指標ではなく、Google の順位決定に使われているわけでもありません。Moz 自身も、競合サイトと比べる相対的な目安として使うよう勧めています。同じような指標は、Ahrefs の DR など、ツールごとに存在します。',
+ p:'クライアントから「DA を上げてほしい」と言われたら、DA はツール上の目安で、それ自体を上げることが目的ではないと説明します。目的は検索流入や成果で、DA は競合との比較に使うと便利な数値です。',s:'m6'},
+{id:108,o:'moz',c:C1,t:'mc',q:'ページが Google のインデックスから外れる原因として、当てはまらないものはどれ？',ch:['meta description が設定されていない','URL が 404 や 5xx エラーを返している','noindex タグが追加された','手動による対策（ペナルティ）を受けた'],a:0,
+ e:'インデックスから外れる主な原因は、404 などのエラーやサーバーエラーが返っている、noindex が追加された、ガイドライン違反で手動による対策を受けた、パスワード保護が追加された、などです。meta description が未設定でも、Google はページの本文からスニペットを作るので、インデックスから外れることはありません。',
+ why:{1:'エラーを返す URL はインデックスから削除されていきます。ページを移転したのにリダイレクトを設定し忘れた、という事故でよく起こります。',2:'noindex は「インデックスに登録しないで」という指示なので、外れる原因になります。',3:'手動による対策で、ページやサイトがインデックスから削除されることがあります。'},
+ p:'「急に検索に出なくなった」という相談では、URL 検査ツールで登録状況を確認し、ステータスコード、noindex、手動による対策の有無の順に見ていきます。',s:'m2'},
+{id:167,o:'moz',c:C1,t:'mc',q:'公開したばかりの新しいサイトが、検索結果にまったく表示されない。原因として考えにくいものはどれ？',ch:['title の文字数が多すぎる','公開したばかりで、まだクロールされていない','他のサイトから1本もリンクされていない','robots.txt や noindex で検索エンジンをブロックしている'],a:0,
+ e:'新しいサイトが検索に出ない主な原因は、まだクロールされていない、外部から1本もリンクがなく見つけてもらえない、ナビゲーションがクロールしにくい作りになっている、robots.txt や noindex でブロックしている、ガイドライン違反でペナルティを受けている、などです。title が長いことは表示のされ方に影響するだけで、検索に出ない原因にはなりません。',
+ why:{1:'新しいサイトは、見つけてもらってクロールされるまでに時間がかかります。',2:'Google は主にリンクをたどって新しいページを見つけるので、外部リンクがないと発見が遅れます。サイトマップの送信が役立ちます。',3:'開発中に設定したブロックが公開後も残っているのは、よくある原因です。'},
+ p:'WordPress の場合、「設定」の「表示設定」にある「検索エンジンでの表示」にチェックが入っていると、検索エンジンを拒否する設定になります。新規公開時に真っ先に確認します。',s:'m2'},
+
+// ── 設定・実装
+{id:110,o:'moz',c:C2,t:'mc',q:'リダイレクトの設定で避けるべき「リダイレクトチェーン」とはどれ？',ch:['A → B → C のように、転送が何回も連続している状態','A から B へ 301 リダイレクトしている状態','A と B が同じ内容で、canonical タグで A を指定している状態','A が 404 を返している状態'],a:0,
+ e:'リダイレクトチェーンは、URL の移転を重ねるうちに A → B → C のように転送が連続してしまった状態です。転送が多いと Googlebot がたどり着きにくくなり、ユーザーへの表示も遅くなります。A から C へ直接リダイレクトするように整理し、内部リンクも最終的な URL（C）に直接張り替えるのが理想です。',
+ why:{1:'1回だけの 301 リダイレクトは通常の移転で、チェーンではありません。',2:'canonical タグによる正規化で、リダイレクトではありません。',3:'404 はページが見つからない状態で、リダイレクトではありません。'},
+ p:'リニューアルを繰り返しているサイトでよく見つかります。クロールツールで転送の回数を確認し、2回以上転送されている URL を洗い出して整理します。',s:'m4'},
+{id:111,o:'moz',c:C2,t:'tf',q:'管理画面など公開したくないページは、robots.txt に Disallow として書いておくのが適切な隠し方である。',a:1,
+ e:'robots.txt は誰でも閲覧できるファイルなので、非公開ページの場所を書くと、かえって悪意のある人に場所を教えることになります。また、robots.txt に従わないボットも存在します。非公開にしたいページはログインやパスワードで保護し、必要に応じて noindex を設定します。',
+ p:'監査で robots.txt を開いたときに、管理画面やテスト環境のパスが並んでいたら、保護の方法を見直すよう提案します。',s:'m2'},
+{id:112,o:'moz',c:C2,t:'mc',q:'存在しない URL にアクセスされたときに表示する「404 ページ」の作り方として適切なものはどれ？',ch:['ステータスコードは 404 のまま、主要ページへのリンクやサイト内検索を置いたカスタムページにする','ステータスコード 200 で「ページが見つかりません」と表示する','どの URL もすべてトップページへ 301 リダイレクトする','真っ白なページを表示する'],a:0,
+ e:'404 ページは、ステータスコードとして 404 を正しく返したうえで、訪問者が迷わないように主要ページへのリンク、サイト内検索、問い合わせ先などを置いたカスタムページにするのが推奨です。訪問者がそのままサイトを離れてしまうのを防げます。',
+ why:{1:'200 を返すと、Google にソフト 404 と判定されます。存在しないページは 404 を返します。',2:'関係のないトップページへまとめて転送すると、訪問者には何が起きたか分からず、ページがないことも伝わりません。移転先がある URL だけ、その転送先へ 301 を設定します。',3:'訪問者が状況を理解できず、離脱につながります。'},
+ p:'404 ページのステータスコードは、ブラウザの開発者ツールや Search Console の URL 検査で確認できます。デザインだけ作り込まれていて、実は 200 を返しているケースがあるので注意します。',s:'m2'},
+{id:113,o:'moz',c:C2,t:'mc',q:'スマートフォン対応の方法として、Google が推奨している構成はどれ？',ch:['レスポンシブウェブデザイン（同じ URL・同じ HTML で、画面幅に合わせて表示を変える）','スマホ専用の別 URL を用意する','パソコン版だけを用意し、スマホでは拡大して見てもらう','スマホからのアクセスをアプリのダウンロードページへ転送する'],a:0,
+ e:'Google はレスポンシブウェブデザインを推奨しています。同じ URL と HTML のまま、CSS で画面サイズに合わせて表示を切り替える方式で、どの端末でも拡大・縮小せずに読めます。URL が1つなので、管理の面でも評価が分散しない面でも扱いやすい方式です。',
+ why:{1:'スマホ用の別 URL（m.example.com など）を用意する方式もありますが、PC 版との対応づけや内容の一致を保つ必要があり、管理が複雑になります。',2:'スマホで拡大しないと読めないページは、ユーザー体験が悪くなります。',3:'見たいページの代わりにアプリの案内に飛ばされるのは、ユーザーにとって不便です。'},
+ p:'スマホ表示の確認は、実機に加えて、ブラウザの開発者ツールで画面幅を変えて見るのが手軽です。',s:'m5'},
+{id:114,o:'moz',c:C2,t:'tf',q:'モバイルファーストインデックスでは、Google は主にスマートフォン版のページをクロールしてインデックスに登録する。',a:0,
+ e:'Google は 2018 年からモバイルファーストインデックスへの移行を進め、ページのスマホ版をもとにクロールとインデックス登録を行っています。そのため、スマホ版で本文やリンクが省略されていると、その部分は評価の対象になりにくくなります。',
+ p:'スマホ版で「続きを読む」の先が読み込まれない、PC 版にしかないリンクやパンくずがある、といった PC 版との差がないかを確認します。',s:'m5'},
+{id:116,o:'moz',c:C2,t:'tf',q:'検索で見つけてほしい重要なテキストは、画像の中に文字として入れるより、HTML のテキストとして書く方がよい。',a:0,
+ e:'検索エンジンは画像の内容をある程度理解できますが、画像の中の文字を人と同じように読み取れる保証はありません。見出しや本文など重要なテキストは HTML のテキストとして書き、画像には alt 属性で説明を付けます。',
+ p:'バナー画像にキャッチコピーやサービス名を入れているだけのトップページはよくあります。同じ内容をテキストでも載せるよう提案します。',s:'m2'},
+{id:117,o:'moz',c:C2,t:'mc',q:'構造化データを実装した後、正しく書けているかを確認するのに使う Google のツールはどれ？',ch:['リッチリザルト テスト','PageSpeed Insights','Google トレンド','Google ビジネス プロフィール'],a:0,
+ e:'リッチリザルト テストに URL かコードを入れると、構造化データがリッチリザルトの対象として正しく認識されるかを確認できます。schema.org の仕様に沿っているかは Schema Markup Validator でも確認できます。構造化データは書き間違えやすいので、実装後の確認は欠かせません。',
+ why:{1:'ページの表示速度を診断するツールです。',2:'キーワードの検索人気の推移を調べるツールです。',3:'店舗の情報を Google 検索やマップに載せるためのサービスです。'},
+ p:'Search Console にも、構造化データの種類ごとにエラーを確認できるレポートがあります。公開後はそちらで継続的に監視します。',s:'m0'},
+{id:118,o:'moz',c:C2,t:'tf',q:'構造化データを正しく実装すれば、そのページは星評価などのリッチリザルト付きで表示されるようになる。',a:1,
+ e:'構造化データは、リッチリザルトが表示される「可能性」を作るものです。正しく実装しても、表示されるかどうかは Google が判断し、保証はされません。',
+ p:'クライアントには「星評価が出るようになります」ではなく「表示の対象になる条件を整えます」と説明します。',s:'m5'},
+{id:119,o:'moz',c:C2,t:'tf',q:'レビューの構造化データは、ページ上に表示されていないレビューにも付けてよい。',a:1,
+ e:'構造化データはページの内容を正確に反映している必要があり、訪問者に見えない内容をマークアップしてはいけません。レビューの構造化データを付けるなら、そのレビューがページ上に表示されている必要があります。また、事業者自身が書いたものではなく、実際の顧客による本物のレビューであることが前提です。',
+ p:'星評価を出すために、ページにない評価を構造化データだけに書いている例は監査で見つかることがあります。ガイドライン違反になりうるので修正を提案します。',s:'m5'},
+{id:120,o:'moz',c:C2,t:'mc',q:'日本語版と英語版のように、同じページの別言語版があることを Google に伝えるために使うものはどれ？',ch:['hreflang','canonical タグ','noindex','nofollow'],a:0,
+ e:'hreflang は、ページに別の言語や地域向けのバージョンがあることを Google に伝える仕組みです。これにより、検索した人の言語に合ったバージョンが表示されやすくなります。',
+ why:{1:'canonical タグは重複ページの代表 URL を伝えるもので、言語違いのページを互いに伝える用途ではありません。',2:'noindex はインデックス登録を止める指示です。',3:'nofollow はリンク先を推薦していないことを伝える注釈です。'},
+ p:'多言語サイトの監査では、各言語版が互いを hreflang で指し合っているか、指している URL が正規 URL かを確認します。',s:'m5'},
+{id:122,o:'moz',c:C2,t:'mc',q:'見出しタグ（h1〜h6）の使い方として適切なものはどれ？',ch:['h1 でページの主題を示し、h2・h3 で内容のまとまりを区切る','文字を大きくしたい箇所には、見出しでなくても h1 を使う','電話番号やボタンにも見出しタグを使って目立たせる','すべての見出しにキーワードを詰め込む'],a:0,
+ e:'見出しタグは、続く内容が何についてかを示すものです。h1 でページの主題を表し、h2・h3 で内容を区切ると、読者にも検索エンジンにも構造が伝わります。Moz は、各ページに主題を表す固有の h1 を置くよう勧める一方、見出しタグは多くの要素の一つにすぎず、良いコンテンツや被リンクほど順位を動かすものではないとも述べています。',
+ why:{1:'見た目を大きくしたいだけなら CSS で調整します。見出しでない部分に見出しタグを使うと、構造が分かりにくくなります。',2:'Moz は、ナビゲーションのボタンや電話番号のような見出しでない要素に見出しタグを使わないよう勧めています。',3:'不自然なキーワードの詰め込みは読みにくく、キーワードの乱用とみなされるおそれがあります。'},
+ p:'Google の説明では、見出しが順番どおりでなくても検索上の問題はありません。監査では順序の厳密さより、ページの主題が見出しで分かるか、見出しでない要素に見出しタグが使われていないかを見ます。',s:'m4'},
+{id:123,o:'moz',c:C2,t:'mc',q:'`<title>` の長さについての考え方として適切なものはどれ？',ch:['長すぎると検索結果で途中が切れるので重要な語を前に置く。ただし読みやすさを犠牲にしてまで削らない','決められた文字数を超えると評価が下がるので、必ず上限内に収める','キーワードを繰り返して長くするほど有利になる','短ければ短いほど順位が上がる'],a:0,
+ e:'検索結果では表示できる幅に限りがあり、長い title は途中で「…」と省略されます。そのため、重要な語を前の方に置くのが効果的です。Moz は英語で 50〜60 文字程度を目安に挙げていますが、読みやすさを損なってまで文字数に合わせるべきではないとしています。Google も title の文字数の上限は定めておらず、不必要に長くしないよう勧めているだけです。',
+ why:{1:'Google は title の文字数で評価を下げるとは説明していません。目安はあくまで表示上の都合です。',2:'同じ語の繰り返しはキーワードの乱用とみなされ、Google に書き換えられる原因にもなります。',3:'短すぎるとページの内容が伝わらず、Google に書き換えられることもあります。'},
+ p:'日本語では全角30文字前後が目安としてよく使われますが、これも表示上の目安です。Search Console で検索結果での表示やクリック率を見ながら調整します。',s:'m4'},
+
+// ── URLの構造
+{id:124,o:'moz',c:C5,t:'tf',q:'「SEO とは」のような時期に左右されない記事の URL には、`/2015/april/` のような日付を入れない方がよい。',a:0,
+ e:'URL のディレクトリは、内容のトピックだけでなく種類も伝えます。日付入りの URL はニュースのような時事的な記事には合いますが、いつ読んでも役立つ記事に使うと、検索結果で URL を見た人に「古い情報かもしれない」と思われ、クリックされにくくなることがあります。',
+ p:'WordPress の設定などで、記事 URL に日付が自動で入るサイトはよくあります。既存の URL を変えるとリダイレクトが必要になるので、サイトの設計段階で決めておくのが理想です。',s:'m4'},
+{id:125,o:'moz',c:C5,t:'tf',q:'`/seattle-dentist/dental-services/dental-crowns/` のように、各階層に同じキーワードを入れると、URL がより評価されやすくなる。',a:1,
+ e:'狙うキーワードを URL に入れること自体は、内容を伝えるうえで有効です。ただし、各階層に同じ語を繰り返すと、ユーザーから見て不自然で、キーワードを詰め込んだ操作的な URL に見えるおそれがあります。Moz は「検索する人の目で見て自然か、クリックしたくなるか」で判断するよう勧めています。',
+ p:'URL 設計では、ディレクトリ名はカテゴリを表す短い語、ページ名は内容を表す語、という役割分担で考えると重複を避けやすくなります。',s:'m4'},
+{id:126,o:'moz',c:C5,t:'mc',q:'複数の分野を扱う法律事務所のサイト。「離婚時の扶養料（alimony）」のページを置く URL として最も適切なものはどれ？',ch:['`/family-law/alimony`','`/commercial-litigation/alimony`','`/2015/april/alimony`','`/page?id=532`'],a:0,
+ e:'扶養料は家族法の分野なので、`/family-law/`（家族法）のディレクトリに置くのが自然です。ディレクトリはページの分類を表すので、内容と関係のないディレクトリに置くと、ユーザーにも検索エンジンにも誤ったトピックが伝わります。',
+ why:{1:'`commercial-litigation`（商事訴訟）は企業間の紛争の分野で、扶養料とは関係がありません。',2:'時期に左右されない内容に日付入りの URL を使うと、古い情報に見えることがあります。',3:'番号だけのパラメータでは、何のページか伝わりません。'},
+ p:'ディレクトリ構成は、グローバルナビやパンくずリストと一致させるのが基本です。Moz も、URL はサイトの構造に合わせるのがベストプラクティスだとしています。',s:'m4'},
+
+// ── コンテンツ・ポリシー
+{id:130,o:'moz',c:C3,t:'mc',q:'Moz が「薄いコンテンツ（thin content）」の典型として挙げている例はどれ？',ch:['「ウェディングドレス」「ブライダルドレス」など言い換えごとに、ほぼ同じ内容のページを量産する','1つのテーマを詳しく解説した記事','写真を多く使った商品紹介ページ','よくある質問をまとめたページ'],a:0,
+ e:'以前は、キーワードの言い換えごとにほぼ同じ内容のページを作ったり、地名だけを変えたページを大量に作ったりする手法がありました。こうした中身の薄いページはユーザーの役に立たず、Google は 2011 年のパンダアップデート以降、低品質なページの評価を下げています。言い換えごとにページを分けるのではなく、1つのテーマを包括的に扱う充実したページを作るのが推奨です。',
+ why:{1:'1つのテーマを詳しく扱うのは、むしろ推奨される作り方です（ただし長さ自体が評価されるわけではありません）。',2:'写真が多いこと自体は問題ありません。',3:'ユーザーの疑問に答える FAQ は、有用なコンテンツになりえます。'},
+ p:'地域ページを量産しているサイトでは、地名以外の中身が同じになっていないかを確認します。地域ごとに作るなら、その地域固有の情報（所在地、実績、お客様の声など）を入れます。',s:'m4'},
+{id:132,o:'moz',c:C3,t:'mc',q:'Moz が勧める「10x コンテンツ」の作り方として正しいものはどれ？',ch:['上位ページを調べ、それらより圧倒的に価値のあるページを作る','上位ページの文章を言い換えて組み合わせる','上位ページの10倍の文字数で書く','狙うキーワードを10回以上入れる'],a:0,
+ e:'10x コンテンツは「検索結果に出ている他のページより10倍良いコンテンツ」という考え方です。狙うキーワードで検索して上位のページを調べ、それらの良い点を把握したうえで、それを上回る価値のあるページを作ります。価値の高いページは、自然に他サイトからリンクされることにもつながります。',
+ why:{1:'他サイトの言い換えや組み合わせは、価値を加えていなければスクレイピングや低品質なコンテンツになります。',2:'Moz も Google も、決まった文字数はないとしています。必要な長さは検索意図によって変わります。',3:'キーワードの回数を増やしてもページの価値は上がらず、乱用とみなされるおそれがあります。'},
+ p:'実務では、上位ページに足りないもの（独自データ、実体験、図解、最新情報など）を洗い出し、それを提供できるかを企画段階で検討します。',s:'m4'},
+{id:133,o:'moz',c:C3,t:'tf',q:'検索エンジン向けの施策か迷ったときは、「検索エンジンがなかったとしても、これをするだろうか？」と自問するのがよい判断基準とされている。',a:0,
+ e:'これは Google の旧ウェブマスター向けガイドラインにあった考え方で、Moz も紹介しています。「Google の社員に説明しても気まずくないか」「ユーザーの役に立つか」も同じ趣旨の目安です。ユーザーのためなら検索エンジンがなくてもやる施策は安全で、順位のためだけの施策はガイドライン違反に近づきます。',
+ p:'クライアントや社内で「これはスパムになりますか？」と聞かれたときに、この問いを使って一緒に考えると納得を得やすくなります。',s:'m1'},
+{id:134,o:'moz',c:C3,t:'mc',q:'ローカルビジネスのサイトで、正確かつ一貫して掲載することが重要とされる「NAP」とは何？',ch:['店名・住所・電話番号','ナビゲーション・アンカー・パス','新着記事・アーカイブ・ページ送り','営業時間・定休日・駐車場'],a:0,
+ e:'NAP は Name（名前）、Address（住所）、Phone number（電話番号）の頭文字です。来店型の店舗や、顧客のもとへ出向く事業では、サイトのフッターやお問い合わせページなどに NAP を正確に、同じ表記で載せることが重要です。他のサイトでの店舗情報の掲載（サイテーション）も、表記がそろっているほど Google の信頼につながるとされています。',
+ why:{1:'サイトの構造に関する用語を並べたもので、NAP ではありません。',2:'ブログの機能に関する用語で、NAP ではありません。',3:'掲載すべき情報ではありますが、NAP には含まれません。'},
+ p:'Google ビジネス プロフィール、自社サイト、各種ポータルサイトで、住所の表記（「1丁目2-3」と「1-2-3」など）や電話番号がそろっているかを確認します。',s:'m4'},
+{id:135,o:'moz',c:C3,t:'tf',q:'口コミを増やすために、レビューを書いてくれたお客様に割引クーポンを渡すのは、問題のない施策である。',a:1,
+ e:'割引クーポンのような見返りと引き換えにレビューを集めるのは、避けるべき行為です。Moz は、どんな種類であれ見返りを渡してレビューを頼まないこと、偽のレビューを依頼したり、自社や競合のレビューを自分たちで書いたりしないことを強く勧めています。レビューは顧客が自分のアカウントで投稿したものであるべきです。こうした行為は各プラットフォームの規約違反になり、国によっては法的な問題にもなります。',
+ p:'日本でも、事業者が関与した口コミを広告と分からない形で載せることは、景品表示法のステルスマーケティング規制の対象になります。レビュー施策の相談では、満足した顧客に自然に投稿をお願いする方法を提案します。',s:'m6'},
+
+// ── キーワード・検索意図
+{id:140,o:'moz',c:C6,t:'mc',q:'検索意図の分類で「ナビゲーショナル（案内型）」に当たる検索はどれ？',ch:['「Moz ブログ」のように、特定のサイトへ行きたい検索','「エッフェル塔 高さ」のように、情報を知りたい検索','「航空券 東京 札幌 予約」のように、何かを行いたい検索','「近くのカフェ」のように、近くの場所を探す検索'],a:0,
+ e:'Moz は検索意図を主に5つに分けています。情報を知りたい「インフォメーショナル」、特定のサイトへ行きたい「ナビゲーショナル」、購入や予約など何かを行いたい「トランザクショナル」、商品を比べたい「コマーシャル（比較検討）」、近くの場所を探す「ローカル」です。',
+ why:{1:'情報を知りたい検索で、インフォメーショナルです。',2:'予約という行動をしたい検索で、トランザクショナルです。',3:'近くの場所を探す検索で、ローカルです。'},
+ p:'検索意図によって、作るべきページの形が変わります。トランザクショナルな検索には商品ページや予約ページ、インフォメーショナルな検索には解説記事が合います。',s:'m3'},
+{id:141,o:'moz',c:C6,t:'mc',q:'検索語句と検索意図の組み合わせとして正しいものはどれ？',ch:['「PS5 PS5 Pro 違い」— 比較検討（コマーシャル）','「楽天」— インフォメーショナル','「エッフェル塔 高さ」— トランザクショナル','「近くのカフェ」— ナビゲーショナル'],a:0,
+ e:'「PS5 PS5 Pro 違い」は、購入前に商品を比べたい検索なので、比較検討（コマーシャル）です。検索意図はキーワードの言葉だけでなく、実際の検索結果に何が表示されるかからも読み取れます。',
+ why:{1:'「楽天」は特定のサイトへ行きたい検索で、ナビゲーショナルです。',2:'高さという情報を知りたい検索で、インフォメーショナルです。',3:'近くの場所を探す検索で、ローカルです。'},
+ p:'比較検討の検索では、比較表やランキング形式のページが上位に並ぶことが多いです。検索意図に合わない形式のページでは、内容が良くても上位に入りにくくなります。',s:'m3'},
+{id:142,o:'moz',c:C6,t:'mc',q:'「ロングテールキーワード」の説明として正しいものはどれ？',ch:['語数が多く具体的で、検索数は少ないが意図がはっきりしていて成果につながりやすいキーワード','検索数が非常に多い、1語の人気キーワード','検索結果に SERP 機能が多く出るキーワード','季節によって検索数が大きく変わるキーワード'],a:0,
+ e:'ロングテールキーワードは「赤 レディース ランニングシューズ 23cm 最安」のように語数が多く具体的なキーワードです。1つ1つの検索数は少ないものの競合が少なく、検索した人の目的がはっきりしているため、購入や問い合わせにつながりやすい傾向があります。Moz によれば、検索全体の大部分はこうした検索数の少ないキーワードが占めています。',
+ why:{1:'検索数の多い1語のキーワードは「ビッグキーワード」などと呼ばれ、ロングテールの反対です。',2:'SERP 機能の多さはロングテールの定義とは関係ありません。',3:'季節性のあるキーワードの説明で、ロングテールの定義ではありません。'},
+ p:'新しいサイトや規模の小さいサイトは、競合の強いビッグキーワードより、ロングテールから上位を狙う方が成果を出しやすいのが一般的です。',s:'m3'},
+{id:143,o:'moz',c:C6,t:'tf',q:'狙うキーワードを選ぶときは、検索ボリュームが大きいものから優先するのが基本である。',a:1,
+ e:'検索ボリュームが大きいキーワードは一般に競合が強く、上位表示までの労力が大きくなります。また「ピザ」のような1語のキーワードは、栄養を知りたいのか、注文したいのか、店を探したいのか意図があいまいで、上位に入っても目的に合わない訪問者が多くなりがちです。検索数、競合の強さ、事業との関連性を合わせて判断します。',
+ p:'キーワードの優先順位は、検索ボリュームだけでなく、成約につながる意図か、自社が勝てる難易度かも含めて決めます。',s:'m3'},
+{id:144,o:'moz',c:C6,t:'mc',q:'狙うキーワードの検索意図を知るために、まずやるべきことはどれ？',ch:['実際にそのキーワードで検索し、上位ページの種類や SERP 機能を確認する','競合サイトの meta keywords を調べる','検索ボリュームの数字だけを見る','自社が伝えたいことを優先して決める'],a:0,
+ e:'Google は膨大な検索データをもとに、キーワードごとにユーザーが求める結果を表示しています。実際に検索して、上位に並ぶページの種類（記事、商品一覧、比較表など）、形式（長文か短文か、画像や動画が多いか）、SERP 機能（ショッピング、ローカルパック、強調スニペットなど）を見れば、検索意図をつかめます。',
+ why:{1:'meta keywords は Google 検索で使われておらず、検索意図の手がかりにもなりません。',2:'検索ボリュームは需要の大きさを示すだけで、何を求めているかは分かりません。',3:'Moz は、自分たちが上位を取りたいキーワードと、ユーザーが実際に求めているものはしばしば違うと指摘しています。'},
+ p:'キーワード調査の資料には、主要キーワードごとに「上位ページの傾向」を書き添えると、どんなページを作るべきかをクライアントと共有しやすくなります。',s:'m3'},
+{id:145,o:'moz',c:C6,t:'mc',q:'キーワード調査の出発点として使う「シードキーワード」とはどれ？',ch:['自社の商品やサービスを表す基本的な語','検索数が最も多いキーワード','競合サイトだけが上位にいるキーワード','社内だけで使っている専門用語'],a:0,
+ e:'シードキーワードは、調査の「種」になる基本的な語です。たとえば結婚式の花屋なら「ウェディング」「花屋」などです。これをキーワード調査ツールに入れて、「ウェディングブーケ」「ブライダル 花」のような関連語や、よくある質問へと広げていきます。',
+ why:{1:'検索数の多さではなく、事業を表す語であることが出発点になります。',2:'競合の順位とは関係なく、自社の事業から考えます。',3:'社内用語はユーザーが検索に使わないことも多く、出発点として適切とは限りません。'},
+ p:'シードキーワードを出すときは、社内の呼び方だけでなく、顧客が実際に使う言葉（問い合わせの内容、レビュー、営業の会話など）からも拾うと、検索される語に近づきます。',s:'m3'},
+{id:146,o:'moz',c:C6,t:'tf',q:'キーワードは言い換えごとに1ページずつ作るのではなく、同じトピック・同じ検索意図のキーワードをまとめて、1つのページで対応するのが基本である。',a:0,
+ e:'Moz は、キーワード調査の結果を、似たトピックと検索意図ごとにグループに分け、そのグループ単位でページを作るよう勧めています。言い換えごとに似たページを量産すると、薄いコンテンツになり、互いに評価を分け合ってしまいます。',
+ p:'実務では「キーワードマップ」として、キーワードのグループと対応するページの一覧を作ります。同じグループを複数のページが狙っていないかの確認にも使えます。',s:'m4'},
+{id:147,o:'moz',c:C6,t:'tf',q:'検索順位がつくのはサイト全体ではなくページ単位なので、ページごとに狙うキーワードを決めて最適化する。',a:0,
+ e:'Moz は「キーワードで順位がつくのはサイトではなくページだ」と強調しています。大手ブランドではトップページが多くのキーワードで上位に出ることもありますが、多くのサイトでは、トップページ以外のページが検索流入の大部分を集めます。ページごとに固有の価値あるキーワードを割り当てて最適化することが重要です。',
+ p:'「トップページで〇〇の順位を上げたい」という要望はよくありますが、そのキーワードにはトップページより専用ページの方が適していることも多いです。',s:'m3'},
+
+// ── リンク
+{id:150,o:'moz',c:C7,t:'mc',q:'「被リンク（バックリンク）」の説明として正しいものはどれ？',ch:['他のサイトから自分のサイトに向けて張られたリンク','自分のサイト内のページ同士をつなぐリンク','自分のサイトから他のサイトへ向けて張ったリンク','リンク先が存在しない壊れたリンク'],a:0,
+ e:'被リンク（バックリンク、インバウンドリンク）は、他のサイトから自分のサイトへ張られたリンクです。Moz は被リンクを、現実の口コミでの推薦にたとえています。関係のない複数の人が同じ店を勧めれば信頼できるように、信頼されるサイトから自然に張られたリンクは、検索エンジンにとって評価の手がかりになります。',
+ why:{1:'内部リンクです。',2:'発リンク（外部リンク）です。被リンクとは向きが逆です。',3:'リンク切れです。'},
+ p:'被リンクの状況は、Search Console のリンクレポートで無料で確認できます。より詳しく分析するには Ahrefs や Moz などの有料ツールを使います。',s:'m6'},
+{id:151,o:'moz',c:C7,t:'mc',q:'「エディトリアルリンク」とはどんなリンク？',ch:['サイト運営者が内容を評価して、自発的に張ってくれたリンク','お金を払って張ってもらったリンク','自分でブログのコメント欄に書き込んだリンク','相互リンクの約束で張ってもらったリンク'],a:0,
+ e:'エディトリアルリンクは、記事の書き手やサイト運営者が、内容を参考になると判断して自発的に張ったリンクです。Google はこうした自然なリンクを評価し、リンクの購入や自作自演のリンクのように操作されたものは評価しない、またはペナルティの対象とします。',
+ why:{1:'購入したリンクで、ガイドライン違反になりえます。',2:'自分で設置したリンクで、スパム扱いされやすいものです。',3:'リンク交換で、過剰に行うとガイドライン違反になります。'},
+ p:'エディトリアルリンクを得る基本は、引用したくなるコンテンツ（独自データ、調査結果、便利なツールなど）を作り、それを知ってもらうことです。',s:'m6'},
+{id:152,o:'moz',c:C7,t:'tf',q:'被リンクは、リンク元のサイトのテーマに関係なく、本数が多いほど評価が高まる。',a:1,
+ e:'Moz は、同じトピックのコミュニティにあるサイトからのリンクの方が、無関係なサイトからのリンクより一般に価値が高いとしています。たとえば犬小屋を売るサイトなら、ブリーダーの団体からのリンクは、ローラースケート協会からのリンクより意味があります。無関係なサイトからのリンクは、ページのテーマについて誤った手がかりを与えることもあります。',
+ p:'リンク獲得の候補先は、自社の業界や顧客が見ているメディアから選びます。関係のないサイトからのリンクを大量に集める提案は疑ってかかります。',s:'m6'},
+{id:153,o:'moz',c:C7,t:'tf',q:'他サイトからの被リンクは、アンカーテキストがすべて同じキーワードにそろっているほど理想的である。',a:1,
+ e:'アンカーテキストはリンク先の内容を伝える手がかりになりますが、多くのサイトがそろって同じ語句でリンクしているのは自然ではなく、リンクを操作していると疑われるおそれがあります。Moz は、10人の友人に別々に近況を聞いて全員が一言一句同じ文で答えたら怪しいと感じるのと同じだ、とたとえています。',
+ p:'被リンクのアンカーテキストの内訳はリンク分析ツールで確認できます。特定のキーワードに偏っている場合は、過去に業者がリンクを操作していないかを確認します。',s:'m6'},
+{id:154,o:'moz',c:C7,t:'mc',q:'被リンクの評価についての説明として、最も適切なものはどれ？',ch:['質の低いサイトからの10本より、信頼できるサイトからの1本の方が価値が高いことが多い','本数が多ければ、リンク元の質は関係ない','nofollow のリンクは、サイトにとってまったく意味がない','1つのサイトから何百本もリンクされるのが最も理想的である'],a:0,
+ e:'Moz は、権威のある1つのサイトからのリンクは、質の低い10のサイトからのリンクより価値があるとしています。また、1つのサイトから何百本もリンクされるより、多くの異なるサイトから1本ずつリンクされる方が、幅広く支持されていることを示します。',
+ why:{1:'リンク元の質は重要です。質の低いリンクばかりでは評価されないか、スパムとみなされるおそれがあります。',2:'nofollow のリンクは評価を渡さないとされますが、訪問者を連れてきたり、将来の自然なリンクにつながったりする価値があります。',3:'被リンクの評価では、リンク元のサイトの種類が多いこと（多様性）が重視されます。'},
+ p:'被リンクの報告では、リンクの総数よりも、リンク元のドメインの数とその質を見ます。',s:'m6'},
+{id:155,o:'moz',c:C7,t:'tf',q:'取引先やパートナー企業と互いにリンクし合うのは、リンクスパムに当たる。',a:1,
+ e:'実際に取引や提携のある相手とリンクし合うのは自然なことで、問題ありません。ガイドラインで問題とされるのは、関係のない多数のサイトと、リンクを増やす目的だけで大量にリンクを交換することです。',
+ p:'「リンクを交換しませんか」という見知らぬサイトからのメールには応じないよう、クライアントに伝えておくとよいです。',s:'m6'},
+{id:156,o:'moz',c:C7,t:'mc',q:'他のサイトの記事で自社名が紹介されているのに、自社サイトへのリンクがない。適切な対応はどれ？',ch:['掲載元に連絡し、リンクを追加してもらえないか丁寧に相談する','謝礼を払ってリンクを張ってもらう','掲載元の記事のコメント欄に自社サイトの URL を書き込む','できることはないので放置する'],a:0,
+ e:'自社やコンテンツについて言及しているのにリンクがないケースはよくあります。Moz は、こうした言及を検索で見つけ、掲載元にリンクの追加を相談することを、リンク獲得の方法として紹介しています。すでに好意的に紹介してくれている相手なので、依頼が受け入れられやすいのが特徴です。',
+ why:{1:'リンクの対価として金銭を払うのはリンクの購入にあたり、ガイドライン違反です。',2:'コメント欄に自分で書き込んだリンクは、スパム扱いされやすく、評価もされません。',3:'相談すればリンクを追加してもらえることも多く、手軽なリンク獲得の機会です。'},
+ p:'自社名やサービス名を引用符付きで検索したり、言及を検知するツールを使ったりすると、こうした機会を定期的に見つけられます。',s:'m6'},
+{id:157,o:'moz',c:C7,t:'mc',q:'リンク獲得の方法として、推奨されないものはどれ？',ch:['被リンクを販売している業者からリンクを買う','独自の調査データをまとめて公開する','他サイトのリンク切れを見つけ、代わりになる自社ページを紹介する','業界の信頼できるメディアに、有益な記事を寄稿する'],a:0,
+ e:'リンクの購入は、物品やサービスとの交換も含めてガイドライン違反で、発覚すると大幅な順位低下につながるおそれがあります。一方、独自データの公開、リンク切れの代わりになるページの紹介（ブロークンリンクビルディング）、信頼できる媒体への寄稿は、Moz が紹介している正当な方法です。',
+ why:{1:'引用したくなる独自データは、自然な被リンクを集めやすいコンテンツです。',2:'相手のサイトの問題を解決する提案なので、正当な方法です。',3:'質の高い媒体への寄稿は正当です。ただし、リンク獲得だけを目的にした低品質な寄稿記事の量産は避けるべきとされています。'},
+ p:'リンクの購入は「記事掲載パッケージ」など、表現を変えて提案されることもあります。対価と引き換えにリンクが付くなら、リンクの購入と同じです。',s:'m6'},
+
+// ── 調査・分析
+{id:160,o:'moz',c:C4,t:'mc',q:'Search Console に表示される「CTR（クリック率）」の説明として正しいものはどれ？',ch:['検索結果に表示された回数のうち、クリックされた割合','サイトを訪れた人のうち、問い合わせや購入をした割合','ページを見た人のうち、他のページを見ずに離脱した割合','ページがクロールされた頻度'],a:0,
+ e:'CTR（Click Through Rate）は、検索結果に表示された回数（表示回数）のうち、実際にクリックされた割合です。順位が同じでも、タイトルやスニペットの魅力によって CTR は変わるため、title や meta description の改善効果を測る指標として使われます。',
+ why:{1:'コンバージョン率の説明です。',2:'直帰率の説明です。',3:'クロールの頻度は CTR とは関係ありません。'},
+ p:'Search Console の検索パフォーマンスで、表示回数が多いのに CTR が低いページは、タイトルやディスクリプションの改善候補になります。',s:'m7'},
+{id:161,o:'moz',c:C4,t:'mc',q:'SEO の目標（KPI）を決めるとき、Moz がまず考えるよう勧めているものはどれ？',ch:['問い合わせ数や売上など、事業の成果につながる指標','狙ったキーワードの検索順位','サイト全体のアクセス数','Moz のドメインオーソリティ'],a:0,
+ e:'Moz は、順位やアクセス数は目的を達成するための手段であって、それ自体が最終目標ではないと述べています。たとえば、月1,000人が訪れて3人しか問い合わせない状態より、月300人で40人が問い合わせる状態の方が事業には価値があります。まず事業の目標を決め、その達成に SEO を使う、という順番が大切です。',
+ why:{1:'順位は重要な指標ですが、クリックされなければ成果になりません。手段の一つです。',2:'アクセス数が増えても、事業の成果につながらなければ意味がありません。',3:'ツール独自の目安で、事業の成果そのものではありません。'},
+ p:'提案の最初に「このサイトの主要な KPI は〇〇」と合意しておくと、施策の優先順位も、効果報告の軸もぶれなくなります。',s:'m1'},
+{id:162,o:'moz',c:C4,t:'mc',q:'飲食店サイトをリニューアルしたら、トップページの直帰率が上がった。まず考えるべきことはどれ？',ch:['営業時間や住所を見てそのまま来店している可能性もあるので、予約や電話などの成果と合わせて確認する','ページの質が下がったので、元のデザインに戻す','直帰率を下げるために、内容を複数のページに分けて回遊させる','検索順位が下がる前に、すぐに文章を書き直す'],a:0,
+ e:'直帰は、1ページだけ見てサイトを離れた訪問のことです。Moz は、リニューアル後に直帰率が上がったレストランのサイトが、実は以前より成果を出していた例を挙げています。訪問者は営業時間やメニュー、住所を確認して、そのまま来店していたのです。直帰率だけでは、ページが役に立ったかどうかは分かりません。ページの目的によっては、1ページで用が済むのはむしろ良いことです。',
+ why:{1:'直帰率が上がっただけで質が下がったとは判断できません。成果が増えているなら、戻すと逆効果になります。',2:'目的の情報にたどり着きにくくなるだけで、訪問者のためになりません。数字を下げること自体が目的になってしまっています。',3:'直帰率が検索順位を直接決めるわけではありません。原因を確かめる前に書き直すのは早すぎます。'},
+ p:'直帰率は、ページの目的と合わせて見ます。飲食店なら予約数や電話のタップ数、記事ならスクロールの深さなど、そのページで達成したいことに合った指標を併用します。',s:'m7'},
+{id:163,o:'moz',c:C4,t:'mc',q:'URL の末尾に `?utm_source=newsletter&utm_medium=email` のようなパラメータを付ける目的はどれ？',ch:['アクセス解析で、どの施策・媒体から来た訪問かを計測するため','検索順位を上げるため','ページを検索結果に表示させないため','ページの表示速度を上げるため'],a:0,
+ e:'これは UTM パラメータと呼ばれ、流入元（source）、媒体（medium）、キャンペーン名（campaign）などを URL に付けておくことで、Google アナリティクスなどの解析ツールで、どの施策から来た訪問かを区別できるようにするものです。',
+ why:{1:'UTM パラメータは計測用で、順位には関係しません。',2:'検索結果から除外するのは noindex の役割です。',3:'表示速度には関係しません。'},
+ p:'UTM 付きの URL をサイト内のリンクに使うと、サイト内の移動が新しい流入として数えられ、計測が乱れます。UTM はメールや SNS など外部からのリンクだけに使います。パラメータ付きの URL が増えるので、canonical タグで正規 URL を指しているかも確認します。',s:'m7'},
+{id:165,o:'moz',c:C4,t:'mc',q:'SEO 施策の優先順位について、Moz が「後回しにされがちだが、成果を左右する」と注意しているのはどれ？',ch:['緊急ではないが重要な施策','緊急で重要な施策','緊急だが重要でない作業','緊急でも重要でもない作業'],a:0,
+ e:'Moz は、重要度と緊急度の2軸で施策を整理する方法を紹介しています。目先の小さなトラブル対応は成果が出ている気がしますが、そればかりだと「緊急ではないが重要な施策」が置き去りになりがちです。最終的にサイトの成果を動かすのは、この領域の施策だとしています。',
+ why:{1:'すぐに対応すべきもので、後回しにはなりにくい領域です。',2:'目標に関係しないレポート作成など、時間を取られがちですが成果にはつながりにくい作業です。',3:'Moz は例として meta keywords の設定などを挙げています。後回しで構いません。'},
+ p:'施策リストを作るときは、各施策に「影響の大きさ」と「工数」を付けて並べると、クライアントと優先順位を合意しやすくなります。',s:'m7'}
+];
+
+// URL の図解
+const SEGS=[['https://','scheme','プロトコル'],['www.','sub','サブドメイン'],['example.com','domain','ドメイン'],['/pets/','dir','ディレクトリ'],['cats.html','file','ファイル名'],['?sort=price','param','パラメータ'],['#reviews','frag','フラグメント']];
+function figUrl(hl){
+  const on=k=>hl===k||(hl==='path'&&(k==='dir'||k==='file'))||(hl==='host'&&(k==='sub'||k==='domain'));
+  return `<div class="urlfig" role="img" aria-label="URL の各部分の名前"><div class="segs">${SEGS.map(([t,k,l])=>`<div class="seg${on(k)?' on':''}"><code>${esc(t)}</code><span>${l}</span></div>`).join('')}</div>`+
+  `<ul class="groups"><li${hl==='host'?' class="on"':''}><b>ホスト名</b> <code>www.example.com</code>（サブドメイン＋ドメイン）</li><li${hl==='path'?' class="on"':''}><b>パス</b> <code>/pets/cats.html</code>（ディレクトリ＋ファイル名）</li><li${hl==='tld'?' class="on"':''}><b>TLD</b> <code>.com</code>（ドメインの末尾）</li></ul></div>`;
+}
+function figHtml(q){return q.fig==='url'?figUrl(q.hl):''}
+function whyHtml(q){if(!q.why)return '';return `<div class="lbl">他の選択肢が違う理由</div><ul class="why">${Object.entries(q.why).map(([k,r])=>`<li><b>${fmt(q.ch[k])}</b><span>${fmt(r)}</span></li>`).join('')}</ul>`}
+
+// 用語メモ：解説・選択肢に出てくる語を自動で拾って表示する
+const G=[
+['クロール',['クロール'],'Google のプログラム（クローラー）がウェブページを訪れて内容を取得すること。'],
+['クローラー / Googlebot',['クローラー','Googlebot'],'ウェブを巡回してページを集めるプログラム。Google のものは Googlebot と呼ばれる。'],
+['インデックス（登録）',['インデックス'],'Google が集めたページの情報を保存しておくデータベース。登録されて初めて検索結果に出る候補になる。'],
+['レンダリング',['レンダリング'],'HTML・CSS・JavaScript を読み込み、ブラウザで見える画面の状態を組み立てること。'],
+['正規 URL / 正規化',['正規'],'同じ内容のページが複数の URL にあるとき、代表として検索結果に出す URL。代表を決めることを正規化という。'],
+['canonical タグ',['canonical'],'HTML の head 内に書くタグで、「このページの代表（正規）URL はこれ」と Google に伝える。'],
+['自己参照 canonical',['自己参照'],'正規ページ自身に、自分の URL を指す canonical タグを書いておくこと。'],
+['絶対 URL',['絶対 URL','絶対URL'],'https:// から始まる完全な形の URL。例：https://www.example.com/pets/cats.html'],
+['相対パス',['相対パス'],'ドメイン部分などを省いた URL の書き方。例：/pets/cats.html'],
+['URL フラグメント',['フラグメント'],'URL の # 以降の部分。ページ内の位置を示すもので、Google は通常これを別ページとして扱わない。'],
+['パラメータ付き URL',['パラメータ'],'URL の ? 以降に付く値（例：?sort=price）。並び替えや計測で付き、同じ内容の URL が増える原因になる。'],
+['リダイレクト',['リダイレクト'],'ある URL にアクセスした人や Google を、自動で別の URL へ転送すること。'],
+['301 / 308',['301','308'],'「恒久的に移転した」ことを示すリダイレクト。検索結果も新しい URL に置き換わっていく。'],
+['302 / 307',['302','307'],'「一時的に別の場所にある」ことを示すリダイレクト。検索結果には元の URL が残りやすい。'],
+['404 / 410',['404','410'],'「ページが見つからない」ことを示すステータスコード。410 は「削除済み」をより明確に示す。Google はどちらもインデックスから外していく。'],
+['ソフト 404',['ソフト 404'],'中身は「見つかりません」や空なのに、ステータスコードは 200（成功）を返しているページ。'],
+['HTTP ステータスコード',['ステータスコード','ステータス'],'サーバーがページの状態を返す3桁の数字。200＝成功、301/302＝転送、404＝見つからない、5xx＝サーバーエラー。'],
+['HTTP 200',['HTTP 200','200（成功）'],'「ページを正常に返せた」ことを示すステータスコード。'],
+['robots.txt',['robots.txt'],'サイトのルートに置くテキストファイル。クローラーに「どの URL にアクセスしてよいか」を伝える。'],
+['Disallow',['Disallow'],'robots.txt で「この URL にはアクセスしないで」と指定する命令。'],
+['noindex',['noindex'],'「このページをインデックスに登録しないで」と Google に伝える指示。meta タグか HTTP ヘッダーで指定する。'],
+['X-Robots-Tag',['X-Robots-Tag'],'noindex などの指示を、HTML ではなくサーバーの応答ヘッダーで伝える方法。PDF などにも使える。'],
+['head',['head'],'HTML の先頭部分。title や meta、canonical などページの情報を書く場所で、画面には表示されない。'],
+['meta タグ',['meta タグ','メタタグ'],'HTML の head 内に書く、ページについての付加情報。'],
+['title 要素',['title'],'HTML でページのタイトルを指定するタグ。ブラウザのタブや検索結果のタイトルの元になる。'],
+['h1 / 見出しタグ',['h1','見出し'],'ページ内の見出しを示す HTML タグ。h1 が最上位で、h2〜h6 と下位になる。'],
+['og:title',['og:title'],'SNS でシェアされたときに表示するタイトルを指定するタグ。'],
+['meta description',['description','ディスクリプション'],'ページの要約を書く meta タグ。検索結果の説明文（スニペット）に使われることがある。'],
+['スニペット',['スニペット'],'検索結果でタイトルの下に表示される説明文。'],
+['タイトルリンク',['タイトルリンク'],'検索結果に表示される、クリックできるページのタイトル部分。'],
+['アンカーテキスト',['アンカー'],'リンクとして表示される文字の部分。'],
+['alt 属性（代替テキスト）',['alt','代替テキスト'],'画像の内容を文字で説明する属性。画像が表示できないときや読み上げソフトでも使われる。'],
+['内部リンク',['内部リンク'],'同じサイト内のページ同士をつなぐリンク。'],
+['被リンク',['被リンク'],'他のサイトから自サイトに向けて張られたリンク。'],
+['nofollow',['nofollow'],'リンクに付ける注釈の一つ。「このリンク先を推薦しているわけではない」と Google に伝える。'],
+['UGC / ugc',['ugc','UGC','ユーザー作成','ユーザー生成'],'User Generated Content の略。コメントや掲示板の投稿など、サイトの利用者が書いた内容。'],
+['パンくずリスト',['パンくず'],'「ホーム › カテゴリ › 記事」のように、ページの階層上の位置を示すリンクの並び。検索結果にも表示されることがある。'],
+['サイトマップ',['サイトマップ'],'サイト内の重要な URL を一覧にしたファイル（XML 形式が一般的）。Search Console から送信できる。'],
+['プロトコル（スキーム）',['プロトコル','スキーム'],'URL 先頭の http や https の部分。通信の方式を表す。https は暗号化された方式。'],
+['サブドメイン',['サブドメイン'],'ドメインの前に付けて区切った部分。www.example.com の www、blog.example.com の blog など。'],
+['ドメイン',['ドメイン'],'example.com のような、サイトの住所にあたる名前。'],
+['ホスト名',['ホスト名'],'サブドメインとドメインを合わせた部分。例：www.example.com'],
+['パス',['パス'],'URL のホスト名より後ろの、サイト内での場所を示す部分。例：/pets/cats.html'],
+['ディレクトリ / サブディレクトリ',['ディレクトリ'],'パスの中で、フォルダのように分類を表す部分。例：/pets/。階層の中の階層をサブディレクトリと呼ぶ。'],
+['ファイル名（スラッグ）',['ファイル名','スラッグ'],'パスの最後にある、個別のページを指す部分。例：cats.html'],
+['セッション ID',['セッション'],'訪問者ごとの利用状態を識別するための番号。URL に付けると同じ内容の URL が大量に増える。'],
+['Cookie',['Cookie'],'サイトが訪問者のブラウザに保存する小さなデータ。ログイン状態などの管理に使う。'],
+['ccTLD / gTLD',['ccTLD','gTLD'],'ccTLD は国別の TLD（.jp、.de など）、gTLD は国に結びつかない TLD（.com、.org など）。'],
+['TLD',['TLD'],'ドメインの末尾の部分（.com、.jp、.org など）。'],
+['HTTPS / SSL 証明書',['HTTPS','SSL'],'通信を暗号化した安全な接続方式。HTTPS にするには SSL（TLS）証明書が必要。'],
+['Search Console',['Search Console'],'Google が無料で提供する、検索でのサイトの状況を確認・管理するツール。'],
+['URL 検査ツール',['URL 検査'],'Search Console の機能。個別ページの登録状況、最終クロール日、Google から見た表示などを確認できる。'],
+['表示回数（インプレッション）',['表示回数','インプレッション'],'検索結果にページが表示された回数。クリックされたかどうかは問わない。'],
+['クエリ',['クエリ','検索語句'],'ユーザーが検索窓に入力した語句。'],
+['リッチリザルト',['リッチリザルト'],'星評価や画像、FAQ などが付いた、通常より目立つ検索結果。'],
+['構造化データ',['構造化データ'],'ページの内容（商品、レシピ、記事など）を、Google が理解しやすい決まった形式で書いたもの。'],
+['手動による対策',['手動による対策'],'Google の担当者が審査し、スパムポリシー違反と判断したサイトに行う措置。いわゆる手動ペナルティ。'],
+['Google トレンド',['Google トレンド'],'キーワードの検索人気の推移を調べられる Google の無料ツール。'],
+['Core Web Vitals',['Core Web Vitals'],'表示の速さや操作への反応など、ページの使い心地を測る Google の指標。Search Console のレポートで問題のあるページを確認できる。'],
+['ページエクスペリエンス',['ページエクスペリエンス'],'表示の速さや操作のしやすさなど、ユーザーがページを快適に使えるかどうか。'],
+['PageSpeed Insights',['PageSpeed Insights'],'URL を入れるとページの表示速度と改善点を診断してくれる Google の無料ツール。'],
+['JavaScript',['JavaScript'],'ウェブページに動きや表示の切り替えを加えるプログラミング言語。'],
+['CSS',['CSS'],'ページの見た目（色・配置・文字サイズなど）を指定する言語。'],
+['CMS',['CMS'],'WordPress など、専門知識がなくてもサイトを更新できる管理システム。'],
+['E-E-A-T',['E-E-A-T'],'経験・専門性・権威性・信頼性の頭文字。Google が良いコンテンツを見分ける観点。'],
+['YMYL',['YMYL'],'健康・お金・安全など、人生に大きく影響する分野のこと。'],
+['バイライン',['バイライン'],'記事の著者名を示す表記（「文：〇〇」など）。'],
+['スパムポリシー',['スパム'],'Google が禁止している、検索順位を不正に操作する手法の一覧。違反すると順位が下がったり除外されたりする。'],
+['クローキング',['クローキング'],'Google と人に違う内容を見せる不正な手法。'],
+['スクレイピング',['スクレイピング'],'他サイトの内容をプログラムで自動収集すること。そのまま転載するとスパム扱いになる。'],
+['アフィリエイト',['アフィリエイト'],'紹介した商品が売れると報酬が入る、成果報酬型の仕組み。'],
+['ユーザーエージェント',['ユーザーエージェント'],'アクセスしてきたブラウザやクローラーが「自分は何者か」を名乗る情報。'],
+['定型文（ボイラープレート）',['ボイラープレート','定型文'],'中身をほとんど変えずに使い回される決まり文句。'],
+['PageRank',['PageRank'],'リンクをもとにページを評価する、Google の基本アルゴリズムの一つ。'],
+['クラスタリング',['クラスタリング'],'似た内容のページをグループにまとめること。'],
+['ハブページ',['ハブページ'],'カテゴリ一覧のように、多くのページへのリンクが集まるページ。'],
+['孤立ページ',['孤立ページ'],'サイト内のどこからもリンクされていないページ。Google に見つけてもらいにくい。'],
+['meta refresh',['meta refresh'],'HTML 内の meta タグで、指定した秒数の後に別ページへ移動させる方法。'],
+['API',['API'],'データをプログラムから取得・操作するための窓口。Search Console のデータも API で取り出せる。'],
+['SERP',['SERP'],'検索結果ページ（Search Engine Results Page）のこと。「サープ」と読む。'],
+['SERP 機能',['SERP 機能'],'強調スニペット、ローカルパック、「他の人はこちらも質問」など、通常の青いリンク以外の検索結果の表示。'],
+['オーガニック検索（自然検索）',['オーガニック','自然検索'],'広告ではない、通常の検索結果。SEO で獲得を目指す枠。'],
+['強調スニペット',['強調スニペット'],'検索結果の上部に、質問への答えを枠で目立たせて表示するもの。'],
+['ローカルパック',['ローカルパック'],'地域を含む検索で表示される、地図と店舗の一覧。'],
+['ホワイトハット / ブラックハット',['ホワイトハット','ブラックハット'],'ガイドラインに沿った SEO 手法がホワイトハット、検索エンジンを欺こうとする手法がブラックハット。'],
+['クロールバジェット',['クロールバジェット'],'Googlebot がサイトでクロールする URL の量の目安。大規模サイトで重要になる。'],
+['ドメインオーソリティ（DA）',['ドメインオーソリティ'],'Moz が独自に算出する、サイトの検索上の強さを予測する指標。Google の指標ではない。'],
+['リダイレクトチェーン',['リダイレクトチェーン'],'A→B→C のように、リダイレクトが何回も連続している状態。'],
+['レスポンシブウェブデザイン',['レスポンシブ'],'同じ URL・同じ HTML のまま、画面幅に合わせて表示を切り替える作り方。'],
+['モバイルファーストインデックス',['モバイルファースト'],'Google がページのスマホ版をもとにクロール・インデックス登録する仕組み。'],
+['hreflang',['hreflang'],'ページの別言語・別地域向けのバージョンを Google に伝えるタグ。'],
+['NAP',['NAP'],'Name（店名）・Address（住所）・Phone（電話番号）の頭文字。ローカル SEO で重要な店舗情報。'],
+['Google ビジネス プロフィール',['Google ビジネス プロフィール'],'店舗や会社の情報を Google 検索やマップに無料で掲載できるサービス。旧名称は Google マイビジネス。'],
+['サイテーション',['サイテーション'],'他のサイト上で、店舗や企業の名前・住所・電話番号などが言及されること。'],
+['検索意図',['検索意図'],'検索した人が本当に知りたいこと・したいこと。情報収集、特定サイトへの移動、購入、比較検討、近くの場所探しなどに分けられる。'],
+['ロングテールキーワード',['ロングテール'],'語数が多く具体的なキーワード。検索数は少ないが、意図がはっきりしていて成果につながりやすい。'],
+['検索ボリューム',['検索ボリューム'],'あるキーワードが一定期間（通常は1か月）に検索された回数の目安。'],
+['シードキーワード',['シードキーワード'],'キーワード調査の出発点にする、商品やサービスを表す基本の語。'],
+['薄いコンテンツ',['薄いコンテンツ'],'ユーザーにとってほとんど価値のない、中身の少ないページ。'],
+['10x コンテンツ',['10x'],'検索結果に出ている他のページより10倍良い、という考え方で作る価値の高いコンテンツ。'],
+['パンダアップデート',['パンダ'],'2011 年に Google が行った、低品質なコンテンツの評価を下げるアルゴリズムの更新。'],
+['エディトリアルリンク',['エディトリアル'],'サイト運営者が内容を評価して、自発的に張ってくれたリンク。'],
+['CTR（クリック率）',['CTR','クリック率'],'検索結果に表示された回数のうち、クリックされた割合。'],
+['KPI',['KPI'],'目標の達成度を測るための重要な指標。SEO では問い合わせ数や売上などを置くことが多い。'],
+['コンバージョン',['コンバージョン'],'問い合わせ、購入、会員登録など、サイトで達成してほしい成果。'],
+['直帰率',['直帰'],'1ページだけ見てサイトを離れた訪問の割合。'],
+['UTM パラメータ',['UTM','utm_'],'URL の末尾に付けて、どの施策・媒体から来た訪問かをアクセス解析で区別するためのパラメータ。'],
+['Google アナリティクス',['アナリティクス'],'サイトへの訪問者数や行動を計測する、Google の無料のアクセス解析ツール。'],
+['JSON-LD',['JSON-LD'],'構造化データの書き方の一つ。HTML の script タグの中にまとめて書くので、本文のタグに手を入れずに済む。Google が推奨している。'],
+['必須プロパティ',['必須プロパティ'],'構造化データで、リッチリザルトに表示されるために入れておく必要がある項目。足りないページは、リッチリザルトの対象にならない。'],
+['リッチリザルトのステータス レポート',['ステータス レポート'],'Search Console で、公開済みのページの構造化データが有効かを確認できるレポート。エラーや警告の数が分かる。'],
+['所有権の確認',['所有権'],'Search Console で、そのサイトの持ち主であることを証明する手続き。確認できた人だけがデータを見られる。'],
+['href 属性',['href'],'a 要素に書く、リンク先の URL を指定する部分。Google は、これを持つ a 要素のリンクをたどる。'],
+['キーワードの乱用',['キーワードの乱用'],'検索順位を上げる目的で、同じ語句を不自然に繰り返したり、詰め込んだりすること。スパムポリシーで避けるべきとされている。']
+];
+function glossFor(q){const text=[q.q,...(q.ch||[]),q.e,q.p].join(' ');return G.filter(g=>g[1].some(p=>text.includes(p)))}
+function glossHtml(list){return '<dl class="gl">'+list.map(g=>`<div><dt>${esc(g[0])}</dt><dd>${esc(g[2])}</dd></div>`).join('')+'</dl>'}
+function glossBlock(q,open){const l=glossFor(q);if(!l.length)return '';return `<details class="gloss"${open?' open':''}><summary>この問題に出てくる用語（${l.length}）</summary>${glossHtml(l)}</details>`}
+
+const KEY='seo-kiso-drill.v1';
+const qById=Object.fromEntries(Q.map(x=>[x.id,x]));
+function load(){try{const s=JSON.parse(localStorage.getItem(KEY));if(s&&Array.isArray(s.rounds))return Object.assign({seen:{},weak:[]},s)}catch(e){}return{rounds:[],seen:{},weak:[]}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(store))}catch(e){}}
+let store=load();
+store.weak=store.weak.filter(id=>qById[id]);
+
+const $=id=>document.getElementById(id);
+function esc(s){return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
+function fmt(s){return esc(s).replace(/`([^`]+)`/g,'<code>$1</code>')}
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function crumb(u){return u.replace(/^https:\/\//,'').replace(/\?.*$/,'').split('/').filter(Boolean).join(' › ')}
+function choiceLabels(q){return q.t==='tf'?['○ 正しい','× 誤り']:q.ch}
+function srcHtml(q){const [u,t]=S[q.s];return `<a class="src" href="${u}" target="_blank" rel="noopener"><span class="crumb">${esc(crumb(u))}</span><span class="st">${esc(t)}</span></a>`}
+function detailHtml(q,open){return `<div class="lbl">解説</div><p class="exp">${fmt(q.e)}</p>${figHtml(q)}${whyHtml(q)}<div class="tip"><div class="lbl">実務のポイント</div><p>${fmt(q.p)}</p></div>${glossBlock(q,!!open)}${srcHtml(q)}`}
+$('glCount').textContent=G.length;
+$('glAll').innerHTML=`<div class="lbl" style="margin-top:14px">URL の各部分の呼び方</div>${figUrl('')}`+glossHtml(G);
+
+// category chips
+const catBox=$('cats');
+CATS.forEach((c,i)=>{catBox.insertAdjacentHTML('beforeend',`<label class="chip"><input type="checkbox" id="cat${i}" value="${esc(c)}" checked><span>${esc(c)}（<span id="cn${i}"></span>）</span></label>`)});
+function selectedCats(){return CATS.filter((c,i)=>$('cat'+i).checked)}
+const org=q=>q.o||'google';
+function selOrigins(){const o=[];if($('srcG').checked)o.push('google');if($('srcM').checked)o.push('moz');return o}
+function perRound(){return 15}
+catBox.addEventListener('change',refreshStart);
+$('catAll').addEventListener('click',()=>{CATS.forEach((c,i)=>$('cat'+i).checked=true);refreshStart()});
+$('catNone').addEventListener('click',()=>{CATS.forEach((c,i)=>$('cat'+i).checked=false);refreshStart()});
+$('srcs').addEventListener('change',refreshStart);
+
+let round=null;
+function show(id){['start','glossary','history','play','result'].forEach(s=>$(s).hidden=!(id==='start'?(s==='start'||s==='glossary'||s==='history'):s===id));window.scrollTo(0,0)}
+
+function refreshStart(){
+  const cats=selectedCats(),origins=selOrigins();
+  CATS.forEach((c,i)=>{$('cn'+i).textContent=Q.filter(q=>q.c===c&&origins.includes(org(q))).length});
+  $('nG').textContent=Q.filter(q=>org(q)==='google').length;
+  $('nM').textContent=Q.filter(q=>org(q)==='moz').length;
+  const poolN=Q.filter(q=>cats.includes(q.c)&&origins.includes(org(q))).length;
+  $('go').disabled=poolN===0;
+  const pi=$('poolInfo');
+  if(poolN===0){pi.className='pool warn';pi.textContent=!cats.length?'カテゴリを1つ以上選んでください。':!origins.length?'出典を1つ以上選んでください。':'この組み合わせに当てはまる問題がありません。'}
+  else{pi.className='pool';pi.innerHTML=`選んだ範囲の <b>${poolN}</b> 問から、15問を出題します。`+(poolN<15?`（${poolN}問しかないため、${poolN}問で出題します）`:'')}
+  const weak=store.weak.length;
+  $('goWeak').disabled=weak===0;
+  $('goWeak').textContent=weak?`間違えた問題を復習（${weak}問）`:'間違えた問題を復習';
+  const seenCount=Object.keys(store.seen).filter(id=>qById[id]).length;
+  const tot=store.rounds.reduce((a,r)=>a+r.total,0),cor=store.rounds.reduce((a,r)=>a+r.score,0);
+  $('stats').innerHTML=`<span>問題数 <b>${Q.length}</b></span><span>出題済み <b>${seenCount}</b></span><span>通算正答率 <b>${tot?Math.round(cor/tot*100)+'%':'—'}</b></span>`;
+  renderHistory();
+}
+function pillClass(p){return p>=80?'hi':p>=60?'mid':'lo'}
+function fmtDate(t){const d=new Date(t);const z=n=>String(n).padStart(2,'0');return `${d.getMonth()+1}/${d.getDate()} ${z(d.getHours())}:${z(d.getMinutes())}`}
+function renderHistory(){
+  const h=$('hist');
+  if(!store.rounds.length){h.innerHTML='<p class="empty">まだ記録はありません。1回目を解き終えると、各回の正答率と間違えた問題がここに残ります。</p>';return}
+  h.innerHTML=store.rounds.slice().reverse().map(r=>{
+    const p=Math.round(r.score/r.total*100);
+    const wrong=r.items.filter(i=>!i.ok&&qById[i.id]);
+    const body=wrong.length?'<ul>'+wrong.map(i=>`<li>${fmt(qById[i.id].q)}</li>`).join('')+'</ul>':(r.items.some(i=>!i.ok)?'<p class="empty" style="margin:0 0 12px">この回で間違えた問題は、改訂により現在の問題集から外れています。</p>':'<p class="none">全問正解</p>');
+    return `<details><summary><span class="rn">第${r.n}回${r.weak?'<br><span class="dt">復習</span>':''}</span><span class="dt">${fmtDate(r.at)}　${r.score} / ${r.total}問正解</span><span class="pill ${pillClass(p)}">${p}%</span></summary>${body}</details>`;
+  }).join('');
+}
+
+function start(weakMode){
+  let pool;
+  if(weakMode){pool=store.weak.map(id=>qById[id]).filter(Boolean)}
+  else{const cats=selectedCats(),origins=selOrigins();pool=Q.filter(q=>cats.includes(q.c)&&origins.includes(org(q)))}
+  if(!pool.length)return;
+  // 出題回数が少ない問題を優先し、同数ならランダム
+  pool=shuffle(pool).sort((a,b)=>(store.seen[a.id]||0)-(store.seen[b.id]||0)).slice(0,perRound());
+  pool=shuffle(pool);
+  round={n:store.rounds.length+1,weak:!!weakMode,i:0,items:pool.map(q=>({q,order:q.t==='tf'?[0,1]:shuffle(q.ch.map((_,k)=>k)),chosen:null}))};
+  show('play');renderQ();
+}
+
+function renderQ(){
+  const it=round.items[round.i],q=it.q,N=round.items.length;
+  $('qConfirm').hidden=true;
+  $('pRound').textContent=`第${round.n}回${round.weak?'（復習）':''}`;
+  $('pCount').textContent=`${round.i+1} / ${N}`;
+  $('pBar').style.width=(round.i/N*100)+'%';
+  $('pCat').textContent=q.c;
+  $('pType').textContent=(q.t==='tf'?'○×問題':'4択問題')+'　出典：'+(org(q)==='moz'?'Moz':'Google 公式');
+  $('pQ').innerHTML=fmt(q.q);
+  const labels=choiceLabels(q);
+  const box=$('pChoices');
+  box.className='choices'+(q.t==='tf'?' tf':'');
+  box.innerHTML=it.order.map((k,pos)=>`<button class="choice" id="c${pos}" data-k="${k}">${q.t==='tf'?'':`<span class="k">${pos+1}</span>`}<span class="t">${fmt(labels[k])}</span></button>`).join('');
+  box.querySelectorAll('.choice').forEach(b=>b.addEventListener('click',()=>answer(+b.dataset.k)));
+  $('pFb').hidden=true;
+  $('next').textContent=round.i===N-1?'結果を見る':'次の問題';
+}
+
+function answer(k){
+  const it=round.items[round.i];if(it.chosen!==null)return;
+  it.chosen=k;const q=it.q,ok=k===q.a;
+  $('pChoices').querySelectorAll('.choice').forEach(b=>{b.disabled=true;const bk=+b.dataset.k;if(bk===q.a)b.classList.add('ok');else if(bk===k)b.classList.add('ng')});
+  const v=$('pVerdict');v.textContent=ok?'正解':`不正解　正解は「${choiceLabels(q)[q.a]}」`;v.className='verdict '+(ok?'ok':'ng');
+  $('pDetail').innerHTML=detailHtml(q,true);
+  $('pFb').hidden=false;
+  $('pBar').style.width=((round.i+1)/round.items.length*100)+'%';
+  $('next').focus({preventScroll:true});
+}
+
+function next(){
+  if(round.items[round.i].chosen===null)return;
+  if(round.i<round.items.length-1){round.i++;renderQ();window.scrollTo(0,0)}else finish();
+}
+
+function finish(){
+  const items=round.items.map(it=>({id:it.q.id,chosen:it.chosen,ok:it.chosen===it.q.a}));
+  const score=items.filter(i=>i.ok).length,total=items.length;
+  items.forEach(i=>{store.seen[i.id]=(store.seen[i.id]||0)+1;
+    if(i.ok)store.weak=store.weak.filter(x=>x!==i.id);else if(!store.weak.includes(i.id))store.weak.push(i.id)});
+  store.rounds.push({n:round.n,at:Date.now(),score,total,weak:round.weak,items});
+  save();
+  const p=Math.round(score/total*100);
+  $('rRound').textContent=`第${round.n}回の結果${round.weak?'（復習）':''}`;
+  $('rPct').textContent=p+'%';$('rPct').style.color=`var(--${p>=80?'good':p>=60?'accent':'bad'})`;
+  $('rFrac').textContent=`${total}問中 ${score}問正解`;
+  $('rMsg').textContent=p===100?'全問正解です。別のカテゴリにも挑戦してみましょう。':p>=80?'よくできています。間違えた問題の実務のポイントと出典ページを読んでおくと定着します。':p>=60?'基本は押さえられています。間違えた問題は「復習」でもう一度出題できます。':'間違えた問題の解説と出典ページを確認してから、復習モードで再挑戦しましょう。';
+  $('rList').innerHTML=round.items.map((it,idx)=>{const q=it.q,ok=it.chosen===q.a,L=choiceLabels(q);
+    return `<li class="item ${ok?'ok':'ng'}"><span class="mk">${ok?'○':'×'}</span><div class="body"><div class="q">Q${idx+1}. ${fmt(q.q)}</div>`+
+      (ok?`<div class="ans"><span class="c">正解：<b>${fmt(L[q.a])}</b></span></div><details><summary>解説を見る</summary>${detailHtml(q)}</details>`:
+      `<div class="ans"><span class="y">あなたの回答：<b>${fmt(L[it.chosen])}</b></span>　<span class="c">正解：<b>${fmt(L[q.a])}</b></span></div>${detailHtml(q)}`)+
+      `</div></li>`}).join('');
+  $('again').textContent=`次の${perRound()}問へ`;
+  const w=store.weak.length;
+  $('againWeak').disabled=w===0;$('againWeak').textContent=w?`間違えた問題を復習（${w}問）`:'間違えた問題を復習';
+  round=null;show('result');
+}
+
+$('go').addEventListener('click',()=>start(false));
+$('goWeak').addEventListener('click',()=>start(true));
+$('next').addEventListener('click',next);
+$('again').addEventListener('click',()=>start(false));
+$('againWeak').addEventListener('click',()=>start(true));
+$('home').addEventListener('click',()=>{refreshStart();show('start')});
+// 途中でやめる・やり直す（この回の回答は記録しない）
+let pending=null;
+function ask(kind){
+  const answered=round.items.filter(it=>it.chosen!==null).length;
+  if(answered===0){doCtl(kind);return}
+  pending=kind;
+  $('qConfirmMsg').textContent=(kind==='home'?'トップに戻りますか？':'この回を1問目からやり直しますか？')+`回答済みの${answered}問は記録されません。`;
+  $('qYes').textContent=kind==='home'?'トップに戻る':'最初からやり直す';
+  $('qConfirm').hidden=false;$('qYes').focus();
+}
+function doCtl(kind){
+  $('qConfirm').hidden=true;pending=null;
+  if(kind==='home'){round=null;refreshStart();show('start')}
+  else{round.i=0;round.items.forEach(it=>{it.chosen=null;if(it.q.t!=='tf')it.order=shuffle(it.order)});renderQ();window.scrollTo(0,0)}
+}
+$('qRestart').addEventListener('click',()=>ask('restart'));
+$('qHome').addEventListener('click',()=>ask('home'));
+$('qYes').addEventListener('click',()=>doCtl(pending));
+$('qNo').addEventListener('click',()=>{$('qConfirm').hidden=true;pending=null});
+document.addEventListener('keydown',e=>{
+  if(!round||$('play').hidden)return;
+  const it=round.items[round.i];
+  if(it.chosen===null&&/^[1-4]$/.test(e.key)){const b=$('c'+(+e.key-1));if(b)b.click()}
+  else if(it.chosen!==null&&e.key==='Enter'&&document.activeElement!==$('next')){next()}
+});
+refreshStart();
+</script>
+</body>
+</html>
